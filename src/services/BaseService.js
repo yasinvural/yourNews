@@ -1,10 +1,12 @@
 import axios from "axios";
 
 class BaseService {
-  constructor(baseURL) {
+  constructor() {
     this.http = axios.create({
-      baseURL
+      baseURL: "https://ataknewsserver.herokuapp.com/api/"
     });
+
+    // this.http.defaults.headers.common.Authorization = "Basic dXNlcjp1c2Vy";
   }
 
   async get(url) {
@@ -24,4 +26,6 @@ class BaseService {
   }
 }
 
-export { BaseService };
+const baseService = new BaseService();
+
+export { baseService };

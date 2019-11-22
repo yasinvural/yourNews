@@ -1,9 +1,11 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import LoginPage from "./pages/Login/LoginPage";
 
 function App() {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>Hello News !</h2>
+      <Route exact path="/" component={LoginPage} />
     </>
   );
 }
