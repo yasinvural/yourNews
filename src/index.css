@@ -130,6 +130,10 @@ table {
   display: flex;
 }
 
+.flex1 {
+  flex: 1;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -146,38 +150,38 @@ table {
   align-items: center;
 }
 
-.mt1{
-	margin-top: 1rem;
+.mt1 {
+  margin-top: 1rem;
 }
 
-.mt2{
-	margin-top: 2rem;
+.mt2 {
+  margin-top: 2rem;
 }
 
-.mt05{
-	margin-top: 0.5rem;
+.mt05 {
+  margin-top: 0.5rem;
 }
 
-.mb1{
-	margin-bottom: 1rem;
+.mb1 {
+  margin-bottom: 1rem;
 }
 
-.mb2{
-	margin-bottom: 2rem;
+.mb2 {
+  margin-bottom: 2rem;
 }
 
-.mb05{
-	margin-bottom: 0.5rem;
+.mb05 {
+  margin-bottom: 0.5rem;
 }
 
-.textAlignCenter{
-	text-align: center;
+.textAlignCenter {
+  text-align: center;
 }
 
-.textAlignLeft{
-	text-align: left;
+.textAlignLeft {
+  text-align: left;
 }
 
-.textAlignRight{
-	text-align: right;
+.textAlignRight {
+  text-align: right;
 }

@@ -14,7 +14,7 @@ const paperContainerStyle = {
   padding: "4% 0"
 };
 
-const LoginComponent = ({history}) => {
+const LoginComponent = ({ history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
@@ -55,8 +55,12 @@ const LoginComponent = ({history}) => {
 
   const handleCloseSuccess = () => {
     setShowSuccess(false);
-    history.push('/');
-  }
+    history.push("/");
+  };
+
+  const handleGoToRegisterPage = () => {
+    history.push('/register');
+  };
 
   return (
     <>
@@ -86,15 +90,20 @@ const LoginComponent = ({history}) => {
                 onChange={handlePasswordChange}
               />
             </div>
-            <div className="mt1 textAlignRight">
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                type="submit"
-              >
-                Login
-              </Button>
+            <div className="flex mt1">
+              <div className="flex1">
+                <Button color="primary" onClick={handleGoToRegisterPage}>Sign in</Button>
+              </div>
+              <div className="flex1 textAlignRight">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </div>
             </div>
           </form>
         </div>
