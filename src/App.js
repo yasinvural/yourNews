@@ -8,7 +8,11 @@ import AuthenticationHOC from "./hoc/AuthenticationHOC";
 function App() {
   return (
     <>
-      <Route exact path="/" component={AuthenticationHOC(MainPage)} />
+      <Route
+        exact
+        path="/"
+        component={AuthenticationHOC(withRouter(MainPage))}
+      />
       <Route path="/login" component={withRouter(LoginPage)} />
       <Route path="/register" component={withRouter(RegisterPage)} />
     </>

@@ -1,8 +1,8 @@
-import React from 'react';
-import RegisterComponent from '../../components/Register/RegisterComponent';
+import React from "react";
+import RegisterComponent from "../../components/Register/RegisterComponent";
 
-const RegisterPage = () => {
-  return <RegisterComponent />;
+const RegisterPage = ({ history }) => {
+  return <RegisterComponent history={history} />;
 };
 
 export default RegisterPage;
