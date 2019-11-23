@@ -30,7 +30,6 @@ const LoginComponent = ({ history }) => {
     result
       .then(data => {
         let { id_token } = data.data;
-        id_token = "dXNlcjp1c2Vy";
         localStorage.setItem("token", id_token);
         setShowSuccess(true);
       })
