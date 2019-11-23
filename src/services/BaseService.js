@@ -6,7 +6,30 @@ class BaseService {
       baseURL: "https://ataknewsserver.herokuapp.com/api/"
     });
 
-    // this.http.defaults.headers.common.Authorization = "Basic dXNlcjp1c2Vy";
+    this.http.interceptors.request.use(config => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.common.Authorization = `Basic ${token}`;
+      }
+      return config;
+    });
+
+    this.http.interceptors.response.use(
+      success => {
+        if (success.status === 200) {
+          return success;
+        }
+      },
+      error => {
+        if (error.response.status === 401) {
+          throw Error("UnAuthorized");
+          // return history.push('/login',{
+          //   title:'Unauthorized',
+          //   description:'Please relogin'
+          // });
+        }
+      }
+    );
   }
 
   async get(url) {

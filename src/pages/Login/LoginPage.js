@@ -1,8 +1,8 @@
-import React from "react";
-import LoginContainer from "../../containers/Login/LoginContainer";
+import React from 'react';
+import LoginComponent from '../../components/Login/LoginComponent';
 
-const LoginPage = () => {
-  return <LoginContainer />;
+const LoginPage = (props) => {
+  return <LoginComponent history={props.history} />;
 };
 
 export default LoginPage;

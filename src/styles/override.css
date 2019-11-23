@@ -1,0 +1,12 @@
+
+.MuiOutlinedInput-input {
+    padding: 8px 14px !important;
+}
+
+.MuiInputLabel-outlined {
+    transform: translate(14px, 12px) scale(1) !important;
+}
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink{
+	transform: translate(14px, -6px) scale(0.75) !important;
+}
