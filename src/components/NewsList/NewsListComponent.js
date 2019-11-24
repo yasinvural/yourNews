@@ -6,7 +6,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    background: "antiquewhite"
+    background: "#fcfcfc"
   }
 };
 

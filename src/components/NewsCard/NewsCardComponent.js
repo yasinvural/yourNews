@@ -5,16 +5,18 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
-  Avatar
+  Avatar,
+  Badge
 } from "@material-ui/core";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 
 const styles = {
   card: {
     // maxWidth: "345px",
     // minWidth: "345px",
-    width: '29%',
-    margin:'2% 2%'
+    width: "29%",
+    margin: "2% 2%"
   },
   media: {
     height: "240px"
@@ -27,7 +29,13 @@ const styles = {
 };
 
 const NewsCardComponent = ({ news }) => {
-  const { title, description, imageUrl } = news;
+  const {
+    title,
+    description,
+    imageUrl,
+    newsCommentsCount,
+    newsLikesCount
+  } = news;
   return (
     <>
       <Card style={styles.card}>
@@ -49,12 +57,16 @@ const NewsCardComponent = ({ news }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
+          <div className="ml1">
+            <Badge badgeContent={newsLikesCount} color="primary">
+              <FavoriteBorderIcon />
+            </Badge>
+          </div>
+          <div className="ml1">
+            <Badge badgeContent={newsCommentsCount} color="primary">
+              <ChatBubbleOutlineIcon />
+            </Badge>
+          </div>
         </CardActions>
       </Card>
     </>
