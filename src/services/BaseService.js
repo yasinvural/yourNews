@@ -16,11 +16,14 @@ class BaseService {
 
     this.http.interceptors.response.use(
       success => {
-        if (success.status === 200) {
+        if (success.status === 200 || success.status === 201) {
           return success;
         }
       },
       error => {
+        if (error.response.status === 400) {
+          throw Error("Bad Request");
+        }
         if (error.response.status === 401) {
           throw Error("UnAuthorized");
           // return history.push('/login',{
