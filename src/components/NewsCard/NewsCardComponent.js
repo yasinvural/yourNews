@@ -11,6 +11,7 @@ import {
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const styles = {
   card: {
@@ -29,7 +30,7 @@ const styles = {
   }
 };
 
-const NewsCardComponent = ({ news }) => {
+const NewsCardComponent = ({ news, loading }) => {
   const {
     title,
     description,
@@ -39,49 +40,72 @@ const NewsCardComponent = ({ news }) => {
   } = news;
 
   const renderTopOfTheCard = () => {
-    return (
-      <div className="flex justify-space-between p1">
-        <div>
-          <Avatar style={styles.avatar}>YV</Avatar>
+    if (loading) {
+      return <Skeleton />;
+    } else {
+      return (
+        <div className="flex justify-space-between p1">
+          <div>
+            <Avatar style={styles.avatar}>YV</Avatar>
+          </div>
+          <div className="text-truncate">{title}</div>
+          <div>
+            <MoreVertIcon />
+          </div>
         </div>
-        <div className="text-truncate">{title}</div>
-        <div>
-          <MoreVertIcon />
-        </div>
-      </div>
-    );
+      );
+    }
   };
 
   const renderMediaOfTheCard = () => {
-    return (
-      <CardActionArea>
-        <CardMedia
-          style={styles.media}
-          image={imageUrl}
-          title="Contemplative Reptile"
+    if (loading) {
+      return (
+        <Skeleton
+          variant="rect"
+          width={styles.card.width}
+          height={styles.media.height}
         />
-        <CardContent>
-          <span>{description}</span>
-        </CardContent>
-      </CardActionArea>
-    );
+      );
+    } else {
+      return (
+        <CardActionArea>
+          <CardMedia
+            style={styles.media}
+            image={imageUrl}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <span>{description}</span>
+          </CardContent>
+        </CardActionArea>
+      );
+    }
   };
 
   const renderBottomOfTheCard = () => {
-    return (
-      <CardActions>
-        <div className="ml1">
-          <Badge badgeContent={newsLikesCount} color="primary">
-            <FavoriteBorderIcon />
-          </Badge>
+    if (loading) {
+      return (
+        <div>
+          <Skeleton />
+          <Skeleton width="30%" />
         </div>
-        <div className="ml1">
-          <Badge badgeContent={newsCommentsCount} color="primary">
-            <ChatBubbleOutlineIcon />
-          </Badge>
-        </div>
-      </CardActions>
-    );
+      );
+    } else {
+      return (
+        <CardActions>
+          <div className="ml1">
+            <Badge badgeContent={newsLikesCount} color="primary">
+              <FavoriteBorderIcon />
+            </Badge>
+          </div>
+          <div className="ml1">
+            <Badge badgeContent={newsCommentsCount} color="primary">
+              <ChatBubbleOutlineIcon />
+            </Badge>
+          </div>
+        </CardActions>
+      );
+    }
   };
 
   return (

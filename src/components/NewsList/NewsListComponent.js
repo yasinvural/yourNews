@@ -12,11 +12,11 @@ const styles = {
 
 const NewsListComponent = ({ news, loading }) => {
   return (
-      <div style={styles.container}>
-        {news.map(_new => (
-          <NewsCardComponent key={_new.id} news={_new} loading={loading} />
-        ))}
-      </div>
+    <div style={styles.container}>
+      {news.map(_new => (
+        <NewsCardComponent key={_new.id} news={_new} loading={loading} />
+      ))}
+    </div>
   );
 };
 

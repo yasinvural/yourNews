@@ -13,7 +13,9 @@ const MainPage = ({ history }) => {
     result
       .then(data => {
         setNews(data.data);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 0);
       })
       .catch(err => {
         console.warn(err);
