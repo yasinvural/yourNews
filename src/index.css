@@ -183,6 +183,9 @@ table {
   margin-right: 1rem;
 }
 
+.p1{
+  padding: 1rem;
+}
 .textAlignCenter {
   text-align: center;
 }
@@ -193,4 +196,11 @@ table {
 
 .textAlignRight {
   text-align: right;
+}
+
+.text-truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 200px;
 }
