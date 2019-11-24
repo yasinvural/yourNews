@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  Snackbar,
-  SnackbarContent,
-  Button,
-  TextField,
-  Paper
-} from "@material-ui/core";
-import SnackbarContentComponent from "../../shared/components/SnackbarContentComponent";
+import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
+import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
+import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
 import { login } from "../../services/AccountService";
 
 const paperContainerStyle = {
@@ -16,6 +11,7 @@ const paperContainerStyle = {
 };
 
 const LoginComponent = ({ history }) => {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
@@ -23,6 +19,7 @@ const LoginComponent = ({ history }) => {
 
   const loginSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     const result = login({
       username,
       password,
@@ -33,9 +30,11 @@ const LoginComponent = ({ history }) => {
         let { id_token } = data.data;
         localStorage.setItem("token", id_token);
         setShowSuccess(true);
+        setLoading(false);
       })
       .catch(err => {
         setShowError(true);
+        setLoading(false);
       });
   };
 
@@ -102,8 +101,9 @@ const LoginComponent = ({ history }) => {
                   color="primary"
                   size="small"
                   type="submit"
+                  disabled={loading}
                 >
-                  Login
+                  {loading ? <LoadingSpinnerComponent /> : <>Login</>}
                 </Button>
               </div>
             </div>
@@ -116,7 +116,7 @@ const LoginComponent = ({ history }) => {
           horizontal: "right"
         }}
         open={showError}
-        autoHideDuration={1200}
+        autoHideDuration={1000}
         onClose={handleCloseError}
       >
         <SnackbarContentComponent variant="error" message="Error" />
@@ -127,7 +127,7 @@ const LoginComponent = ({ history }) => {
           horizontal: "right"
         }}
         open={showSuccess}
-        autoHideDuration={1200}
+        autoHideDuration={1000}
         onClose={handleCloseSuccess}
       >
         <SnackbarContentComponent variant="success" message="Success" />

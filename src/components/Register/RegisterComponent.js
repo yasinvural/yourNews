@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { register } from "../../services/AccountService";
 import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
-import SnackbarContentComponent from "../../shared/components/SnackbarContentComponent";
+import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
+import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
 
 const paperContainerStyle = {
   width: "35%",
@@ -10,6 +11,7 @@ const paperContainerStyle = {
 };
 
 const RegisterComponent = ({ history }) => {
+  const [loading, setLoading] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,13 +20,16 @@ const RegisterComponent = ({ history }) => {
 
   const registerSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     const result = register({ login, email, password });
     result
       .then(data => {
         setShowSuccess(true);
+        setLoading(false);
       })
       .catch(err => {
         setShowError(true);
+        setLoading(false);
       });
   };
 
@@ -95,7 +100,7 @@ const RegisterComponent = ({ history }) => {
                 size="small"
                 type="submit"
               >
-                Sign up
+                {loading ? <LoadingSpinnerComponent /> : <>Sign up</>}
               </Button>
             </div>
           </form>
@@ -107,7 +112,7 @@ const RegisterComponent = ({ history }) => {
           horizontal: "right"
         }}
         open={showError}
-        autoHideDuration={1200}
+        autoHideDuration={1000}
         onClose={handleCloseError}
       >
         <SnackbarContentComponent variant="error" message="Error" />
@@ -118,7 +123,7 @@ const RegisterComponent = ({ history }) => {
           horizontal: "right"
         }}
         open={showSuccess}
-        autoHideDuration={1200}
+        autoHideDuration={1000}
         onClose={handleCloseSuccess}
       >
         <SnackbarContentComponent variant="success" message="Success" />
