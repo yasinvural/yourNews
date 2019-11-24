@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const styles = {
   card: {
@@ -36,38 +37,59 @@ const NewsCardComponent = ({ news }) => {
     newsCommentsCount,
     newsLikesCount
   } = news;
+
+  const renderTopOfTheCard = () => {
+    return (
+      <div className="flex justify-space-between p1">
+        <div>
+          <Avatar style={styles.avatar}>YV</Avatar>
+        </div>
+        <div className="text-truncate">{title}</div>
+        <div>
+          <MoreVertIcon />
+        </div>
+      </div>
+    );
+  };
+
+  const renderMediaOfTheCard = () => {
+    return (
+      <CardActionArea>
+        <CardMedia
+          style={styles.media}
+          image={imageUrl}
+          title="Contemplative Reptile"
+        />
+        <CardContent>
+          <span>{description}</span>
+        </CardContent>
+      </CardActionArea>
+    );
+  };
+
+  const renderBottomOfTheCard = () => {
+    return (
+      <CardActions>
+        <div className="ml1">
+          <Badge badgeContent={newsLikesCount} color="primary">
+            <FavoriteBorderIcon />
+          </Badge>
+        </div>
+        <div className="ml1">
+          <Badge badgeContent={newsCommentsCount} color="primary">
+            <ChatBubbleOutlineIcon />
+          </Badge>
+        </div>
+      </CardActions>
+    );
+  };
+
   return (
     <>
       <Card style={styles.card}>
-        <div className="flex justify-space-between p1">
-          <div>
-            <Avatar style={styles.avatar}>YV</Avatar>
-          </div>
-          <div className="text-truncate">{title}</div>
-          <div>button</div>
-        </div>
-        <CardActionArea>
-          <CardMedia
-            style={styles.media}
-            image={imageUrl}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <span>{description}</span>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <div className="ml1">
-            <Badge badgeContent={newsLikesCount} color="primary">
-              <FavoriteBorderIcon />
-            </Badge>
-          </div>
-          <div className="ml1">
-            <Badge badgeContent={newsCommentsCount} color="primary">
-              <ChatBubbleOutlineIcon />
-            </Badge>
-          </div>
-        </CardActions>
+        {renderTopOfTheCard()}
+        {renderMediaOfTheCard()}
+        {renderBottomOfTheCard()}
       </Card>
     </>
   );

@@ -5,22 +5,26 @@ import NewsListComponent from "../../components/NewsList/NewsListComponent";
 
 const MainPage = ({ history }) => {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const result = getNews();
+    setLoading(true);
     result
       .then(data => {
         setNews(data.data);
+        setLoading(false);
       })
       .catch(err => {
         console.warn(err);
+        setLoading(false);
       });
   }, []);
 
   return (
     <>
       <AppBarComponent history={history} />
-      <NewsListComponent news={news} />
+      <NewsListComponent news={news} loading={loading} />
     </>
   );
 };
