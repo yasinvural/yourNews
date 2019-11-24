@@ -100,7 +100,7 @@ const RegisterComponent = ({ history }) => {
                 size="small"
                 type="submit"
               >
-                Sign in
+                Sign up
               </Button>
             </div>
           </form>

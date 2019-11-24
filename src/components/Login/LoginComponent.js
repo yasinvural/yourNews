@@ -91,7 +91,7 @@ const LoginComponent = ({ history }) => {
             </div>
             <div className="flex mt1">
               <div className="flex1">
-                <Button color="primary" onClick={handleGoToRegisterPage}>Sign in</Button>
+                <Button color="primary" onClick={handleGoToRegisterPage}>Sign up</Button>
               </div>
               <div className="flex1 textAlignRight">
                 <Button
