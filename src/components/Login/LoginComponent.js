@@ -6,6 +6,7 @@ import {
   TextField,
   Paper
 } from "@material-ui/core";
+import SnackbarContentComponent from "../../shared/components/SnackbarContentComponent";
 import { login } from "../../services/AccountService";
 
 const paperContainerStyle = {
@@ -58,7 +59,7 @@ const LoginComponent = ({ history }) => {
   };
 
   const handleGoToRegisterPage = () => {
-    history.push('/register');
+    history.push("/register");
   };
 
   return (
@@ -91,7 +92,9 @@ const LoginComponent = ({ history }) => {
             </div>
             <div className="flex mt1">
               <div className="flex1">
-                <Button color="primary" onClick={handleGoToRegisterPage}>Sign up</Button>
+                <Button color="primary" onClick={handleGoToRegisterPage}>
+                  Sign up
+                </Button>
               </div>
               <div className="flex1 textAlignRight">
                 <Button
@@ -116,7 +119,7 @@ const LoginComponent = ({ history }) => {
         autoHideDuration={1200}
         onClose={handleCloseError}
       >
-        <SnackbarContent variant="error" message={<span>Error</span>} />
+        <SnackbarContentComponent variant="error" message="Error" />
       </Snackbar>
       <Snackbar
         anchorOrigin={{
@@ -127,7 +130,7 @@ const LoginComponent = ({ history }) => {
         autoHideDuration={1200}
         onClose={handleCloseSuccess}
       >
-        <SnackbarContent variant="success" message={<span>Success</span>} />
+        <SnackbarContentComponent variant="success" message="Success" />
       </Snackbar>
     </>
   );

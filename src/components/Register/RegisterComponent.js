@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { register } from "../../services/AccountService";
-import {
-  Snackbar,
-  SnackbarContent,
-  Button,
-  TextField,
-  Paper
-} from "@material-ui/core";
+import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
+import SnackbarContentComponent from "../../shared/components/SnackbarContentComponent";
 
 const paperContainerStyle = {
   width: "35%",
@@ -115,7 +110,7 @@ const RegisterComponent = ({ history }) => {
         autoHideDuration={1200}
         onClose={handleCloseError}
       >
-        <SnackbarContent variant="error" message={<span>Error</span>} />
+        <SnackbarContentComponent variant="error" message="Error" />
       </Snackbar>
       <Snackbar
         anchorOrigin={{
@@ -126,7 +121,7 @@ const RegisterComponent = ({ history }) => {
         autoHideDuration={1200}
         onClose={handleCloseSuccess}
       >
-        <SnackbarContent variant="success" message={<span>Success</span>} />
+        <SnackbarContentComponent variant="success" message="Success" />
       </Snackbar>
     </>
   );
