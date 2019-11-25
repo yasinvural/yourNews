@@ -1,5 +1,7 @@
 import React from "react";
 import { SnackbarContent } from "@material-ui/core";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ErrorIcon from "@material-ui/icons/Error";
 
 const styles = {
   error: {
@@ -10,12 +12,23 @@ const styles = {
   }
 };
 
+const variantIcon = {
+  error: ErrorIcon,
+  success: CheckCircleIcon
+};
+
 const SnackbarContentComponent = ({ variant, message }) => {
+  const Icon = variantIcon[variant];
   return (
     <>
       <SnackbarContent
         style={styles[variant]}
-        message={<span>{message}</span>}
+        message={
+          <span className="flex align-center">
+            <Icon />
+            <span className="ml1">{message}</span>
+          </span>
+        }
       />
     </>
   );
