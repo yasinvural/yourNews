@@ -40,7 +40,6 @@ const NewsCardComponent = ({ news, loading }) => {
     newsCommentsCount,
     newsLikesCount
   } = news;
-
   const renderTopOfTheCard = () => {
     if (loading) {
       return <Skeleton />;
@@ -121,18 +120,30 @@ const NewsCardComponent = ({ news, loading }) => {
     }
   };
 
+  const renderCommentBox = () => {
+    const { userImageUrl, userLogin, content, updatedAt } =
+      newsComments.length > 0 && newsComments[0];
+    if (newsComments.length > 0) {
+      return (
+        <CommentBoxComponent
+          userImageUrl={userImageUrl}
+          userLogin={userLogin}
+          content={content}
+          updatedAt={updatedAt}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <Card style={styles.card}>
         {renderTopOfTheCard()}
         {renderMediaOfTheCard()}
         {renderBottomOfTheCard()}
-        <CommentBoxComponent
-          userImageUrl={newsComments.length > 0 && newsComments[0].userImageUrl}
-          userLogin={newsComments.length > 0 && newsComments[0].userLogin}
-          content={newsComments.length > 0 && newsComments[0].content}
-          updatedAt={newsComments.length > 0 && newsComments[0].updatedAt}
-        />
+        {renderCommentBox()}
       </Card>
     </>
   );
