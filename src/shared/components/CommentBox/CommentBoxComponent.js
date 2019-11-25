@@ -16,9 +16,9 @@ const CommentBoxComponent = ({
       <div className="flex flex-column ml1 flex1">
         <div className="flex justify-space-between align-center">
           <Typography variant="h6">{userLogin}</Typography>
-          <Typography variant="subtitle2">{moment(updatedAt, "YYYY-MM-DD").fromNow()}</Typography>
+          <Typography variant="caption">{moment(updatedAt, "YYYY-MM-DD").fromNow()}</Typography>
         </div>
-        <div>{content}</div>
+        <Typography variant="subtitle2">{content}</Typography>
       </div>
     </Card>
   );
