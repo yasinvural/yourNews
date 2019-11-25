@@ -12,6 +12,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Skeleton from "@material-ui/lab/Skeleton";
+import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
 
 const styles = {
   card: {
@@ -35,6 +36,7 @@ const NewsCardComponent = ({ news, loading }) => {
     title,
     description,
     imageUrl,
+    newsComments,
     newsCommentsCount,
     newsLikesCount
   } = news;
@@ -94,12 +96,23 @@ const NewsCardComponent = ({ news, loading }) => {
       return (
         <CardActions>
           <div className="ml1">
-            <Badge badgeContent={newsLikesCount} color="primary">
+            <Badge
+              badgeContent={newsLikesCount}
+              className="pointer"
+              color="primary"
+            >
               <FavoriteBorderIcon />
             </Badge>
           </div>
           <div className="ml1">
-            <Badge badgeContent={newsCommentsCount} color="primary">
+            <Badge
+              badgeContent={newsCommentsCount}
+              className="pointer"
+              color="primary"
+              onClick={() => {
+                alert("asd");
+              }}
+            >
               <ChatBubbleOutlineIcon />
             </Badge>
           </div>
@@ -114,6 +127,12 @@ const NewsCardComponent = ({ news, loading }) => {
         {renderTopOfTheCard()}
         {renderMediaOfTheCard()}
         {renderBottomOfTheCard()}
+        <CommentBoxComponent
+          userImageUrl={newsComments.length > 0 && newsComments[0].userImageUrl}
+          userLogin={newsComments.length > 0 && newsComments[0].userLogin}
+          content={newsComments.length > 0 && newsComments[0].content}
+          updatedAt={newsComments.length > 0 && newsComments[0].updatedAt}
+        />
       </Card>
     </>
   );

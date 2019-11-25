@@ -186,6 +186,10 @@ table {
 .p1{
   padding: 1rem;
 }
+.p01{
+  padding: 0 1rem;
+}
+
 .textAlignCenter {
   text-align: center;
 }
@@ -203,4 +207,8 @@ table {
   overflow: hidden;
   white-space: nowrap;
   max-width: 200px;
+}
+
+.pointer{
+  cursor: pointer;
 }
