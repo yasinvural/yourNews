@@ -13,6 +13,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
+import ResourceTypes from "../../const/ResourceTypes";
 
 const styles = {
   card: {
@@ -69,18 +70,30 @@ const NewsCardComponent = ({ news, loading }) => {
         />
       );
     } else {
-      return (
-        <CardActionArea>
-          <CardMedia
-            style={styles.media}
-            image={resources[0].resourceName}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <span>{description}</span>
-          </CardContent>
-        </CardActionArea>
-      );
+      if (resources[0].resourceType === ResourceTypes.Video) {
+        return (
+          <CardActionArea>
+            <CardMedia style={styles.media}>
+              <video width="100%" controls>
+                <source src={resources[0].resourceName} type="video/mp4" />
+                <source src={resources[0].resourceName} type="video/ogg" />
+              </video>
+            </CardMedia>
+            <CardContent>
+              <span>{description}</span>
+            </CardContent>
+          </CardActionArea>
+        );
+      } else {
+        return (
+          <CardActionArea>
+            <CardMedia style={styles.media} image={resources[0].resourceName} />
+            <CardContent>
+              <span>{description}</span>
+            </CardContent>
+          </CardActionArea>
+        );
+      }
     }
   };
 
@@ -109,9 +122,6 @@ const NewsCardComponent = ({ news, loading }) => {
               badgeContent={newsCommentsCount}
               className="pointer"
               color="primary"
-              onClick={() => {
-                alert("asd");
-              }}
             >
               <ChatBubbleOutlineIcon />
             </Badge>
