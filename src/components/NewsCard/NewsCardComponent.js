@@ -5,7 +5,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Avatar,
   Badge
 } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -13,6 +12,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
+import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 
 const styles = {
   card: {
@@ -23,11 +23,6 @@ const styles = {
   },
   media: {
     height: "240px"
-  },
-  avatar: {
-    width: "24px",
-    height: "24px",
-    fontSize: "0.75rem"
   }
 };
 
@@ -36,6 +31,8 @@ const NewsCardComponent = ({ news, loading }) => {
     title,
     description,
     imageUrl,
+    userLogin,
+    resources,
     newsComments,
     newsCommentsCount,
     newsLikesCount
@@ -45,9 +42,13 @@ const NewsCardComponent = ({ news, loading }) => {
       return <Skeleton />;
     } else {
       return (
-        <div className="flex justify-space-between p1">
+        <div className="flex justify-space-between p1 align-center">
           <div>
-            <Avatar style={styles.avatar}>YV</Avatar>
+            <AvatarComponent
+              size="small"
+              imageUrl={imageUrl}
+              login={userLogin}
+            />
           </div>
           <div className="text-truncate">{title}</div>
           <div>
@@ -72,7 +73,7 @@ const NewsCardComponent = ({ news, loading }) => {
         <CardActionArea>
           <CardMedia
             style={styles.media}
-            image={imageUrl}
+            image={resources[0].resourceName}
             title="Contemplative Reptile"
           />
           <CardContent>

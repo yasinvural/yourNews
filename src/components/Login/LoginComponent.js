@@ -27,8 +27,13 @@ const LoginComponent = ({ history }) => {
     });
     result
       .then(data => {
-        let { id_token } = data.data;
+        const { id_token, user } = data.data;
+        const { id, imageUrl, firstName, lastName, login } = user;
         localStorage.setItem("token", id_token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ id, imageUrl, firstName, lastName, login })
+        );
         setShowSuccess(true);
         setLoading(false);
       })

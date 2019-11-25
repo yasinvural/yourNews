@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Popover,
-  Button
-} from "@material-ui/core";
+import { AppBar, Toolbar, Popover, Button } from "@material-ui/core";
+import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 
 const AppBarComponent = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,26 +15,32 @@ const AppBarComponent = ({ history }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     handleAnchorClose();
     history.push("/");
   };
 
   const open = Boolean(anchorEl);
 
+  const renderAvatar = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const { imageUrl, login } = user;
+    return (
+      <AvatarComponent
+        size="medium"
+        imageUrl={imageUrl}
+        login={login}
+        handleClick={handleAnchorClick}
+      />
+    );
+  };
+
   return (
     <>
       <AppBar position="static">
         <Toolbar className="justify-space-between">
           <div>Your News</div>
-          <IconButton
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            color="inherit"
-            onClick={handleAnchorClick}
-          >
-            YV
-          </IconButton>
+          {renderAvatar()}
           <Popover
             open={open}
             anchorEl={anchorEl}
