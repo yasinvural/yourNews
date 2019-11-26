@@ -12,7 +12,7 @@ const MainPage = ({ history }) => {
     setLoading(true);
     result
       .then(data => {
-        setNews(data.data);
+        setNews(data);
         setTimeout(() => {
           setLoading(false);
         }, 0);

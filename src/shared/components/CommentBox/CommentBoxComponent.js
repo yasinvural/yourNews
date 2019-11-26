@@ -1,25 +1,70 @@
-import React from "react";
-import { Card, Avatar, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { Card, Avatar, Typography, Popover } from "@material-ui/core";
+import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import moment from "moment";
+const user = JSON.parse(localStorage.getItem("user"));
 
 const CommentBoxComponent = ({
   content,
   userLogin,
+  userId,
   userImageUrl,
   updatedAt
 }) => {
+  const [deleteAnchor, setDeleteAnchor] = useState(null);
+
+  const handleOpenDeletePopover = e => {
+    setDeleteAnchor(e.currentTarget);
+  };
+
+  const handleCloseDeletePopover = () => {
+    setDeleteAnchor(null);
+  };
+
+  const open = Boolean(deleteAnchor);
+
+  const renderDeletePopover = () => {
+    const { id } = user;
+    if (id === userId) {
+      return (
+        <div className="align-self-start">
+          <div onClick={handleOpenDeletePopover}>
+            <KeyboardArrowDownOutlinedIcon />
+          </div>
+          <Popover
+            open={open}
+            anchorEl={deleteAnchor}
+            onClose={handleCloseDeletePopover}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center"
+            }}
+          >
+            <div className="p1 pointer">Delete Comment</div>
+          </Popover>
+        </div>
+      );
+    }
+  };
   return (
     <Card className="flex p1 align-center">
       <div>
         <Avatar src={userImageUrl} />
       </div>
-      <div className="flex flex-column ml1 flex1">
+      <div className="flex flex-column ml1 mr1 flex1">
         <div className="flex justify-space-between align-center">
           <Typography variant="h6">{userLogin}</Typography>
-          <Typography variant="caption">{moment(updatedAt, "YYYY-MM-DD").fromNow()}</Typography>
+          <Typography variant="caption">
+            {moment(updatedAt, "YYYY-MM-DD").fromNow()}
+          </Typography>
         </div>
         <Typography variant="subtitle2">{content}</Typography>
       </div>
+      {renderDeletePopover()}
     </Card>
   );
 };

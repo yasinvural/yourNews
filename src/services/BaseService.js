@@ -17,7 +17,7 @@ class BaseService {
     this.http.interceptors.response.use(
       success => {
         if (success.status === 200 || success.status === 201) {
-          return success;
+          return success.data;
         }
       },
       error => {
@@ -26,10 +26,6 @@ class BaseService {
         }
         if (error.response.status === 401) {
           throw Error("UnAuthorized");
-          // return history.push('/login',{
-          //   title:'Unauthorized',
-          //   description:'Please relogin'
-          // });
         }
       }
     );

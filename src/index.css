@@ -212,3 +212,7 @@ table {
 .pointer{
   cursor: pointer;
 }
+
+.align-self-start{
+  align-self: start;
+}
