@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Card, Avatar, Typography, Popover } from "@material-ui/core";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import moment from "moment";
+import { deleteNewsComment } from "../../../services/CommentService";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const CommentBoxComponent = ({
+  id,
   content,
   userLogin,
   userId,
@@ -24,8 +26,13 @@ const CommentBoxComponent = ({
   const open = Boolean(deleteAnchor);
 
   const renderDeletePopover = () => {
-    const { id } = user;
-    if (id === userId) {
+
+    const deleteComment = id => {
+      deleteNewsComment(id);
+      handleCloseDeletePopover();
+    };
+    
+    if (user.id === userId) {
       return (
         <div className="align-self-start">
           <div onClick={handleOpenDeletePopover}>
@@ -44,7 +51,7 @@ const CommentBoxComponent = ({
               horizontal: "center"
             }}
           >
-            <div className="p1 pointer">Delete Comment</div>
+            <div className="p1 pointer" onClick={()=>deleteComment(id)}>Delete Comment</div>
           </Popover>
         </div>
       );

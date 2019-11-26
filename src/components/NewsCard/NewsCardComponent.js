@@ -132,11 +132,12 @@ const NewsCardComponent = ({ news, loading }) => {
   };
 
   const renderCommentBox = () => {
-    const { userImageUrl, userLogin, content, updatedAt, userId } =
+    const { userImageUrl, userLogin, content, updatedAt, userId, id } =
       newsComments.length > 0 && newsComments[0];
     if (newsComments.length > 0) {
       return (
         <CommentBoxComponent
+          id={id}
           userId={userId}
           userImageUrl={userImageUrl}
           userLogin={userLogin}
