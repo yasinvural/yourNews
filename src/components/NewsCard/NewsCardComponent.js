@@ -17,8 +17,6 @@ import ResourceTypes from "../../const/ResourceTypes";
 
 const styles = {
   card: {
-    // maxWidth: "345px",
-    // minWidth: "345px",
     width: "29%",
     margin: "2% 2%"
   },
@@ -73,11 +71,11 @@ const NewsCardComponent = ({ news, loading }) => {
       if (resources[0].resourceType === ResourceTypes.Video) {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media}>
-              <video width="100%" controls>
+            <CardMedia style={styles.media} image={imageUrl}>
+              {/* <video width="100%" controls>
                 <source src={resources[0].resourceName} type="video/mp4" />
                 <source src={resources[0].resourceName} type="video/ogg" />
-              </video>
+              </video> */}
             </CardMedia>
             <CardContent>
               <span>{description}</span>

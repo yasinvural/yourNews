@@ -29,6 +29,7 @@ const CommentBoxComponent = ({
 
     const deleteComment = id => {
       deleteNewsComment(id);
+      // TODO: card should reRender.
       handleCloseDeletePopover();
     };
     
