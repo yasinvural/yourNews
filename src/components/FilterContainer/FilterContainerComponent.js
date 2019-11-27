@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Toolbar,
   Checkbox,
   Popover,
   Button,
   Typography
 } from "@material-ui/core";
+import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import { getCategories } from "../../services/CategoryService";
 
 const FilterContainerComponent = () => {
@@ -30,9 +29,9 @@ const FilterContainerComponent = () => {
   const openCategory = Boolean(categoryAnchor);
   return (
     <>
-      <div>
+      <div className="flex justify-center">
         <Button color="primary" onClick={handleOpenCategories}>
-          Categories
+          Categories <KeyboardArrowDownOutlinedIcon />
         </Button>
         <Popover
           open={openCategory}
