@@ -133,6 +133,9 @@ table {
 .flex1 {
   flex: 1;
 }
+.flex2 {
+  flex: 2;
+}
 
 .flex-row {
   flex-direction: row;
@@ -147,6 +150,9 @@ table {
 }
 .justify-space-between {
   justify-content: space-between;
+}
+.justify-space-evenly {
+  justify-content: space-evenly;
 }
 
 .align-center {

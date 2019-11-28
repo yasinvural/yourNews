@@ -66,19 +66,23 @@ const FilterContainerComponent = () => {
   };
   const renderTagList = () => {
     if (tagNameList.length > 3) {
-      return <>See filtered tags({tagNameList.length})</>;
+      return <div>See filtered tags({tagNameList.length})</div>;
     } else {
-      return tagNameList.map(tag => (
-        <Chip key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />
-      ));
+      return (
+        <div>
+          {tagNameList.map(tag => (
+            <Chip key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />
+          ))}
+        </div>
+      );
     }
   };
 
   const openCategory = Boolean(categoryAnchor);
   return (
     <>
-      <div className="flex justify-center p1">
-        <Button color="primary" onClick={handleOpenCategories}>
+      <div className="flex p1">
+        <Button color="primary" onClick={handleOpenCategories} className="flex1">
           Categories <KeyboardArrowDownOutlinedIcon />
         </Button>
         <Popover
@@ -100,6 +104,7 @@ const FilterContainerComponent = () => {
         </Popover>
         <OutlinedInput
           placeholder="Type to search"
+          className="flex1"
           value={searchText}
           onChange={handleChangeSearchText}
           startAdornment={
@@ -108,7 +113,7 @@ const FilterContainerComponent = () => {
             </InputAdornment>
           }
         />
-        <div>
+        <div className="flex align-center flex1">
           <TextField
             placeholder="Enter tag name"
             value={tagName}
