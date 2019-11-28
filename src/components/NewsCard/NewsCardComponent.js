@@ -7,6 +7,7 @@ import {
   CardMedia,
   Badge
 } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -14,6 +15,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
+import {likeNews, dislikeNews} from "../../services/LikeService";
 
 const styles = {
   card: {
@@ -27,6 +29,7 @@ const styles = {
 
 const NewsCardComponent = ({ news, loading }) => {
   const {
+    id,
     title,
     description,
     imageUrl,
@@ -34,7 +37,8 @@ const NewsCardComponent = ({ news, loading }) => {
     resources,
     newsComments,
     newsCommentsCount,
-    newsLikesCount
+    newsLikesCount,
+    isLikedByUser
   } = news;
   const renderTopOfTheCard = () => {
     if (loading) {
@@ -68,7 +72,10 @@ const NewsCardComponent = ({ news, loading }) => {
         />
       );
     } else {
-      if (resources.length && resources[0].resourceType === ResourceTypes.Video) {
+      if (
+        resources.length &&
+        resources[0].resourceType === ResourceTypes.Video
+      ) {
         return (
           <CardActionArea>
             <CardMedia style={styles.media} image={imageUrl}>
@@ -85,7 +92,10 @@ const NewsCardComponent = ({ news, loading }) => {
       } else {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={resources.length && resources[0].resourceName} />
+            <CardMedia
+              style={styles.media}
+              image={resources.length && resources[0].resourceName}
+            />
             <CardContent>
               <span>{description}</span>
             </CardContent>
@@ -96,6 +106,30 @@ const NewsCardComponent = ({ news, loading }) => {
   };
 
   const renderBottomOfTheCard = () => {
+    const handleLikeNews = () => {
+      const reqObj = {
+        newsId:id,
+        userId:4
+      };
+      const response = likeNews(reqObj);
+      response.then((data)=>{
+        debugger
+      });
+    };
+
+    const handleDislikeNews = () => {
+      const reqObj = {
+        newsId:id,
+        userId:4
+      };
+      const response = dislikeNews(reqObj);
+      response.then((data)=>{
+        debugger
+      }).catch(err=>{
+        debugger
+      });
+    };
+
     if (loading) {
       return (
         <div>
@@ -112,7 +146,11 @@ const NewsCardComponent = ({ news, loading }) => {
               className="pointer"
               color="primary"
             >
-              <FavoriteBorderIcon />
+              {isLikedByUser ? (
+                <FavoriteIcon style={{ color: "red" }} onClick={handleDislikeNews}  />
+              ) : (
+                <FavoriteBorderIcon onClick={handleLikeNews}/>
+              )}
             </Badge>
           </div>
           <div className="ml1">
