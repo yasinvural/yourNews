@@ -68,7 +68,7 @@ const NewsCardComponent = ({ news, loading }) => {
         />
       );
     } else {
-      if (resources[0].resourceType === ResourceTypes.Video) {
+      if (resources.length && resources[0].resourceType === ResourceTypes.Video) {
         return (
           <CardActionArea>
             <CardMedia style={styles.media} image={imageUrl}>
@@ -85,7 +85,7 @@ const NewsCardComponent = ({ news, loading }) => {
       } else {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={resources[0].resourceName} />
+            <CardMedia style={styles.media} image={resources.length && resources[0].resourceName} />
             <CardContent>
               <span>{description}</span>
             </CardContent>
