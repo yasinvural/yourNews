@@ -15,7 +15,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
-import {likeNews, dislikeNews} from "../../services/LikeService";
+import { likeNews, dislikeNews } from "../../services/LikeService";
 
 const styles = {
   card: {
@@ -108,26 +108,28 @@ const NewsCardComponent = ({ news, loading }) => {
   const renderBottomOfTheCard = () => {
     const handleLikeNews = () => {
       const reqObj = {
-        newsId:id,
-        userId:4
+        newsId: id,
+        userId: 4
       };
       const response = likeNews(reqObj);
-      response.then((data)=>{
-        debugger
+      response.then(data => {
+        debugger;
       });
     };
 
     const handleDislikeNews = () => {
       const reqObj = {
-        newsId:id,
-        userId:4
+        newsId: id,
+        userId: 4
       };
       const response = dislikeNews(reqObj);
-      response.then((data)=>{
-        debugger
-      }).catch(err=>{
-        debugger
-      });
+      response
+        .then(data => {
+          debugger;
+        })
+        .catch(err => {
+          debugger;
+        });
     };
 
     if (loading) {
@@ -147,9 +149,12 @@ const NewsCardComponent = ({ news, loading }) => {
               color="primary"
             >
               {isLikedByUser ? (
-                <FavoriteIcon style={{ color: "red" }} onClick={handleDislikeNews}  />
+                <FavoriteIcon
+                  style={{ color: "red" }}
+                  onClick={handleDislikeNews}
+                />
               ) : (
-                <FavoriteBorderIcon onClick={handleLikeNews}/>
+                <FavoriteBorderIcon onClick={handleLikeNews} />
               )}
             </Badge>
           </div>
@@ -169,7 +174,7 @@ const NewsCardComponent = ({ news, loading }) => {
 
   const renderCommentBox = () => {
     const { userImageUrl, userLogin, content, updatedAt, userId, id } =
-      newsComments.length > 0 && newsComments[0];
+      newsComments && newsComments.length > 0 && newsComments[0];
     if (newsComments.length > 0) {
       return (
         <CommentBoxComponent

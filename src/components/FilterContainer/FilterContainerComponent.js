@@ -13,6 +13,7 @@ import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownO
 import SearchIcon from "@material-ui/icons/Search";
 import { getCategories } from "../../services/CategoryService";
 
+
 const FilterContainerComponent = () => {
   const [categories, setCategories] = useState([]);
   const [searchText, setSearchText] = useState("");

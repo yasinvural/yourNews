@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getNews } from "../../services/NewsService";
+import { useNewsValue } from "../../context/NewsContext";
 
 const styles = {
   container: {
@@ -14,11 +15,9 @@ const styles = {
 };
 
 const NewsListComponent = () => {
-  const size = 10;
   const totalCount = 14;
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
+  const [{ news,pagination, loading }, dispatch] = useNewsValue();
+  const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
 
   useEffect(() => {
@@ -30,19 +29,31 @@ const NewsListComponent = () => {
         size
       }
     });
-    setLoading(true);
+    dispatch({
+      type:"set_loading",
+      payload:true
+    });
     setRequestSent(true);
     result
       .then(data => {
-        setNews(n => [...n, ...data]);
+        dispatch({
+          type:"set_news",
+          payload:data
+        })
         setTimeout(() => {
-          setLoading(false);
+          dispatch({
+            type:"set_loading",
+            payload:false
+          });
           setRequestSent(false);
         }, 0);
       })
       .catch(err => {
         console.warn(err);
-        setLoading(false);
+        dispatch({
+          type:"set_loading",
+          payload:false
+        });
         setRequestSent(false);
       });
   }, [page]);
@@ -67,7 +78,10 @@ const NewsListComponent = () => {
       Math.ceil(scrollTop + clientHeight) >= scrollHeight;
     if (scrolledToBottom) {
       if (totalCount != news.length) {
-        setPage(p => p + 1);
+        dispatch({
+          type: "set_page",
+          payload: page + 1
+        });
         return;
       }
     }
