@@ -38,7 +38,7 @@ const NewsListComponent = () => {
       .then(data => {
         dispatch({
           type: "set_news",
-          payload: data
+          payload: data.data
         });
         setTimeout(() => {
           dispatch({
