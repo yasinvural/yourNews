@@ -1,6 +1,7 @@
 import { baseService } from "./BaseService";
+import {createQueryFromObject} from "../utils/queryBuilder";
 
 export const getNews = (options = {}) => {
-  const { size, page  } = options.pagination;
-  return baseService.get(`news?page=${page}&size=${size}`);
+  const query = createQueryFromObject(options);
+  return baseService.get(`news?${query}`);
 };
