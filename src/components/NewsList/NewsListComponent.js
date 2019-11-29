@@ -91,7 +91,7 @@ const NewsListComponent = () => {
     <div style={styles.container}>
       {news &&
         news.map(_new => (
-          <NewsCardComponent key={_new.id} news={_new} loading={loading} />
+          <NewsCardComponent key={_new.id} news={_new} loading={loading} dispatch={dispatch} />
         ))}
     </div>
   );

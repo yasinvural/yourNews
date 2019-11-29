@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-const NewsCardComponent = ({ news, loading }) => {
+const NewsCardComponent = ({ news, loading, dispatch }) => {
   const {
     id,
     title,
@@ -113,7 +113,10 @@ const NewsCardComponent = ({ news, loading }) => {
       };
       const response = likeNews(reqObj);
       response.then(data => {
-        debugger;
+        dispatch({
+          type: "set_likeNews",
+          payload: id
+        });
       });
     };
 
@@ -123,13 +126,12 @@ const NewsCardComponent = ({ news, loading }) => {
         userId: 4
       };
       const response = dislikeNews(reqObj);
-      response
-        .then(data => {
-          debugger;
-        })
-        .catch(err => {
-          debugger;
+      response.then(data => {
+        dispatch({
+          type: "set_dislikeNews",
+          payload: id
         });
+      });
     };
 
     if (loading) {

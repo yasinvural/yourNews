@@ -41,10 +41,34 @@ export const reducer = (state, action) => {
         selectedCategories: action.payload
       };
     case "set_tagNameList":
-        return {
-            ...state,
-            tagNameList: action.payload
-        }  
+      return {
+        ...state,
+        tagNameList: action.payload
+      };
+    case "set_likeNews":
+      const filteredLikeNews = state.news.map(_news => {
+        if (_news.id === action.payload) {
+          _news.isLikedByUser = true;
+          _news.newsLikesCount = _news.newsLikesCount + 1;
+        }
+        return _news;
+      });
+      return {
+        ...state,
+        news: [...filteredLikeNews]
+      };
+    case "set_dislikeNews":
+      const filteredDislikeNews = state.news.map(_news => {
+        if (_news.id === action.payload) {
+          _news.isLikedByUser = false;
+          _news.newsLikesCount = _news.newsLikesCount - 1;
+        }
+        return _news;
+      });
+      return {
+        ...state,
+        news: [...filteredDislikeNews]
+      };
     default:
       return state;
   }

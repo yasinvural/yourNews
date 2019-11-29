@@ -19,7 +19,7 @@ const FilterContainerComponent = () => {
   const [tagName, setTagName] = useState("");
   const [categoryAnchor, setCategoryAnchor] = useState(null);
   const [
-    { searchText, selectedCategories, tagNameList },
+    { searchText, selectedCategories, tagNameList }, 
     dispatch
   ] = useNewsValue();
 
