@@ -16,7 +16,7 @@ const styles = {
 
 const NewsListComponent = () => {
   const totalCount = 14;
-  const [{ news,pagination, loading }, dispatch] = useNewsValue();
+  const [{ news, pagination, loading }, dispatch] = useNewsValue();
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
 
@@ -30,20 +30,20 @@ const NewsListComponent = () => {
       }
     });
     dispatch({
-      type:"set_loading",
-      payload:true
+      type: "set_loading",
+      payload: true
     });
     setRequestSent(true);
     result
       .then(data => {
         dispatch({
-          type:"set_news",
-          payload:data
-        })
+          type: "set_news",
+          payload: data
+        });
         setTimeout(() => {
           dispatch({
-            type:"set_loading",
-            payload:false
+            type: "set_loading",
+            payload: false
           });
           setRequestSent(false);
         }, 0);
@@ -51,8 +51,8 @@ const NewsListComponent = () => {
       .catch(err => {
         console.warn(err);
         dispatch({
-          type:"set_loading",
-          payload:false
+          type: "set_loading",
+          payload: false
         });
         setRequestSent(false);
       });

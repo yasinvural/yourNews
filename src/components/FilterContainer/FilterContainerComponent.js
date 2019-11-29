@@ -12,15 +12,16 @@ import {
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import { getCategories } from "../../services/CategoryService";
-
+import { useNewsValue } from "../../context/NewsContext";
 
 const FilterContainerComponent = () => {
   const [categories, setCategories] = useState([]);
-  const [searchText, setSearchText] = useState("");
   const [tagName, setTagName] = useState("");
   const [categoryAnchor, setCategoryAnchor] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [tagNameList, setTagNameList] = useState([]);
+  const [
+    { searchText, selectedCategories, tagNameList },
+    dispatch
+  ] = useNewsValue();
 
   useEffect(() => {
     const result = getCategories();
@@ -37,17 +38,26 @@ const FilterContainerComponent = () => {
   };
   const handleSelectCategory = id => {
     if (selectedCategories.indexOf(id) === -1) {
-      setSelectedCategories(c => [...c, id]);
+      dispatch({
+        type: "set_selectedCategories",
+        payload: [...selectedCategories, id]
+      });
     } else {
       const filteredSelectedCategories = selectedCategories.filter(
         category => category !== id
       );
-      setSelectedCategories(filteredSelectedCategories);
+      dispatch({
+        type: "set_selectedCategories",
+        payload: filteredSelectedCategories
+      });
     }
   };
   const handleChangeSearchText = e => {
     const searchText = e.target.value;
-    setSearchText(searchText);
+    dispatch({
+      type: "set_searchText",
+      payload: searchText
+    });
   };
   const handleTagNameChange = e => {
     const tagName = e.target.value;
@@ -56,14 +66,20 @@ const FilterContainerComponent = () => {
   const handleTagNameKeyPress = e => {
     if (e.key === "Enter") {
       if (tagNameList.indexOf(tagName) === -1) {
-        setTagNameList(t => [...t, tagName]);
+        dispatch({
+          type: "set_tagNameList",
+          payload: [...tagNameList, tagName]
+        });
         setTagName("");
       }
     }
   };
   const handleDeleteTag = tag => {
     const filteredTagNameList = tagNameList.filter(tagName => tagName !== tag);
-    setTagNameList(filteredTagNameList);
+    dispatch({
+      type: "set_tagNameList",
+      payload: filteredTagNameList
+    });
   };
   const renderTagList = () => {
     if (tagNameList.length > 3) {
@@ -83,7 +99,11 @@ const FilterContainerComponent = () => {
   return (
     <>
       <div className="flex p1">
-        <Button color="primary" onClick={handleOpenCategories} className="flex1">
+        <Button
+          color="primary"
+          onClick={handleOpenCategories}
+          className="flex1"
+        >
           Categories <KeyboardArrowDownOutlinedIcon />
         </Button>
         <Popover

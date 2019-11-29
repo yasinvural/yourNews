@@ -1,6 +1,9 @@
 export const initialState = {
   loading: false,
   news: [],
+  searchText: "",
+  selectedCategories: [],
+  tagNameList: [],
   pagination: {
     page: 0,
     size: 10
@@ -27,6 +30,21 @@ export const reducer = (state, action) => {
         ...state,
         loading: action.payload
       };
+    case "set_searchText":
+      return {
+        ...state,
+        searchText: action.payload
+      };
+    case "set_selectedCategories":
+      return {
+        ...state,
+        selectedCategories: action.payload
+      };
+    case "set_tagNameList":
+        return {
+            ...state,
+            tagNameList: action.payload
+        }  
     default:
       return state;
   }
