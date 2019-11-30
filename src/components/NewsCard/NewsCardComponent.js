@@ -32,7 +32,7 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
     id,
     title,
     description,
-    imageUrl,
+    userImageUrl,
     userLogin,
     resources,
     newsComments,
@@ -49,7 +49,7 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
           <div>
             <AvatarComponent
               size="small"
-              imageUrl={imageUrl}
+              imageUrl={userImageUrl}
               login={userLogin}
             />
           </div>
@@ -78,7 +78,7 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
       ) {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={imageUrl}>
+            <CardMedia style={styles.media} image={userImageUrl}>
               {/* <video width="100%" controls>
                 <source src={resources[0].resourceName} type="video/mp4" />
                 <source src={resources[0].resourceName} type="video/ogg" />
