@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
 import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
 import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
-import { login } from "../../services/AccountService";
+import { loginUser } from "../../services/AccountService";
 
 const paperContainerStyle = {
   width: "35%",
@@ -17,30 +17,28 @@ const LoginComponent = ({ history }) => {
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const loginSubmit = e => {
+  const loginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const result = login({
-      username,
-      password,
-      rememberMe: false
-    });
-    result
-      .then(data => {
-        const { id_token, user } = data.data;
-        const { id, imageUrl, firstName, lastName, login } = user;
-        localStorage.setItem("token", id_token);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ id, imageUrl, firstName, lastName, login })
-        );
-        setShowSuccess(true);
-        setLoading(false);
-      })
-      .catch(err => {
-        setShowError(true);
-        setLoading(false);
+    try {
+      const result = await loginUser({
+        username,
+        password,
+        rememberMe: false
       });
+      const { id_token, user } = result.data;
+      const { id, imageUrl, firstName, lastName, login } = user;
+      localStorage.setItem("token", id_token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id, imageUrl, firstName, lastName, login })
+      );
+      setShowSuccess(true);
+      setLoading(false);
+    } catch (err) {
+      setShowError(true);
+      setLoading(false);
+    }
   };
 
   const handleUsernameChange = e => {

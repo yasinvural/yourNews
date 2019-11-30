@@ -27,6 +27,9 @@ class BaseService {
         if (error.response.status === 401) {
           throw Error("UnAuthorized");
         }
+        if(error.response.status === 404) {
+          throw Error("Not Found");
+        }
       }
     );
   }

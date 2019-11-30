@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from "../../services/AccountService";
+import { registerUser } from "../../services/AccountService";
 import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
 import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
 import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
@@ -18,19 +18,17 @@ const RegisterComponent = ({ history }) => {
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const registerSubmit = e => {
+  const registerSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    const result = register({ login, email, password });
-    result
-      .then(data => {
-        setShowSuccess(true);
-        setLoading(false);
-      })
-      .catch(err => {
-        setShowError(true);
-        setLoading(false);
-      });
+    try {
+      const result = await registerUser({ login, email, password });
+      setShowSuccess(true);
+      setLoading(false);
+    } catch (err) {
+      setShowError(true);
+      setLoading(false);
+    }
   };
 
   const handleLoginChange = e => {

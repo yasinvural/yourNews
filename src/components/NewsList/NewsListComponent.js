@@ -27,24 +27,23 @@ const NewsListComponent = () => {
 
   useEffect(() => {
     if (requestSent) return;
-
-    const result = getNews({
-      "pagination": {
-        page,
-        size
-      },
-      "title.contains":searchText,
-    });
-    dispatch({
-      type: "set_loading",
-      payload: true
-    });
-    setRequestSent(true);
-    result
-      .then(data => {
+    async function fetchNewsData() {
+      dispatch({
+        type: "set_loading",
+        payload: true
+      });
+      setRequestSent(true);
+      try {
+        const result = await getNews({
+          pagination: {
+            page,
+            size
+          },
+          "title.contains": searchText
+        });
         dispatch({
           type: "set_news",
-          payload: data.data
+          payload: result.data
         });
         setTimeout(() => {
           dispatch({
@@ -53,16 +52,17 @@ const NewsListComponent = () => {
           });
           setRequestSent(false);
         }, 0);
-      })
-      .catch(err => {
-        console.warn(err);
+      } catch (err) {
+        console.log(err.message);
         dispatch({
           type: "set_loading",
           payload: false
         });
         setRequestSent(false);
-      });
-  }, [page,searchText]);
+      }
+    }
+    fetchNewsData();
+  }, [page, searchText]);
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);

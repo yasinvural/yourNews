@@ -24,10 +24,15 @@ const FilterContainerComponent = () => {
   ] = useNewsValue();
 
   useEffect(() => {
-    const result = getCategories();
-    result.then(data => {
-      setCategories(data);
-    });
+    async function fetchCategoriesData(){
+      try{
+        const result = await getCategories();
+        setCategories(result);
+      }catch(err){
+        console.warn(err);
+      }
+    }
+    fetchCategoriesData();
   }, []);
 
   const handleOpenCategories = e => {

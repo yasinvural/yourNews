@@ -106,31 +106,27 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
   };
 
   const renderBottomOfTheCard = () => {
-    const handleLikeNews = () => {
+    const handleLikeNews = async () => {
       const reqObj = {
         newsId: id,
         userId: 4
       };
-      const response = likeNews(reqObj);
-      response.then(data => {
-        dispatch({
-          type: "set_likeNews",
-          payload: id
-        });
+      const response = await likeNews(reqObj);
+      dispatch({
+        type: "set_likeNews",
+        payload: id
       });
     };
 
-    const handleDislikeNews = () => {
+    const handleDislikeNews = async () => {
       const reqObj = {
         newsId: id,
         userId: 4
       };
-      const response = dislikeNews(reqObj);
-      response.then(data => {
-        dispatch({
-          type: "set_dislikeNews",
-          payload: id
-        });
+      const response = await dislikeNews(reqObj);
+      dispatch({
+        type: "set_dislikeNews",
+        payload: id
       });
     };
 

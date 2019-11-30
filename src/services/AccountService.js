@@ -1,10 +1,10 @@
 import { baseService } from "./BaseService";
 
-export const login = data => {
+export const loginUser = data => {
   return baseService.post("authenticate", data);
 };
 
-export const register = data => {
+export const registerUser = data => {
   return baseService.post("register", data);
 };
 
