@@ -42,7 +42,12 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
   } = news;
   const renderTopOfTheCard = () => {
     if (loading) {
-      return <Skeleton />;
+      return (
+        <div className="flex justify-space-between p1 align-center">
+          <Skeleton variant="circle" width={40} height={40} />
+          <Skeleton height={10} width="80%" />
+        </div>
+      );
     } else {
       return (
         <div className="flex justify-space-between p1 align-center">
@@ -174,16 +179,27 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
     const { userImageUrl, userLogin, content, updatedAt, userId, id } =
       newsComments && newsComments.length > 0 && newsComments[0];
     if (newsComments.length > 0) {
-      return (
-        <CommentBoxComponent
-          id={id}
-          userId={userId}
-          userImageUrl={userImageUrl}
-          userLogin={userLogin}
-          content={content}
-          updatedAt={updatedAt}
-        />
-      );
+      if (loading) {
+        return (
+          <>
+            <div className="flex justify-space-between p1 align-center">
+              <Skeleton variant="circle" width={40} height={40} />
+              <Skeleton height={20} width="80%" />
+            </div>
+          </>
+        );
+      } else {
+        return (
+          <CommentBoxComponent
+            id={id}
+            userId={userId}
+            userImageUrl={userImageUrl}
+            userLogin={userLogin}
+            content={content}
+            updatedAt={updatedAt}
+          />
+        );
+      }
     } else {
       return null;
     }

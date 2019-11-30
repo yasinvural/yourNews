@@ -75,8 +75,7 @@ const NewsListComponent = () => {
   return (
     <>
       <div style={styles.container}>
-        {news &&
-          news.map(_new => (
+        {news.map(_new => (
             <NewsCardComponent
               key={_new.id}
               news={_new}
