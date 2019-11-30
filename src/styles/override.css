@@ -14,3 +14,11 @@
 .MuiCardActions-spacing > :not(:first-child){
     margin-left: 16px !important;
 }
+
+.MuiTablePagination-root .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p:first-of-type{
+    display: none;
+}
+
+.MuiTablePagination-root .MuiToolbar-root .MuiTablePagination-input{
+    display:none
+}

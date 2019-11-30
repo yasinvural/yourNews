@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getNews } from "../../services/NewsService";
 import { useNewsValue } from "../../context/NewsContext";
+import { TablePagination } from "@material-ui/core";
 
 const styles = {
   container: {
@@ -9,8 +10,12 @@ const styles = {
     flexDirection: "row",
     flexWrap: "wrap",
     background: "#fcfcfc"
-    // height:"1100px",
-    // overflow:"hidden"
+  },
+  paginationContainer: {
+    display: "flex",
+    flex: "1",
+    justifyContent: "center",
+    background: "#fcfcfc"
   }
 };
 
@@ -58,42 +63,37 @@ const NewsListComponent = () => {
       });
   }, [page]);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleOnScroll);
-    return () => {
-      window.removeEventListener("scroll", handleOnScroll);
-    };
-  });
-
-  const handleOnScroll = () => {
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-    const scrollHeight =
-      (document.documentElement && document.documentElement.scrollHeight) ||
-      document.body.scrollHeight;
-    const clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
-    const scrolledToBottom =
-      Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-    if (scrolledToBottom) {
-      if (totalCount != news.length) {
-        dispatch({
-          type: "set_page",
-          payload: page + 1
-        });
-        return;
-      }
-    }
+  const handleChangePage = (event, newPage) => {
+    window.scrollTo(0, 0);
+    dispatch({
+      type: "set_page",
+      payload: newPage
+    });
   };
 
   return (
-    <div style={styles.container}>
-      {news &&
-        news.map(_new => (
-          <NewsCardComponent key={_new.id} news={_new} loading={loading} dispatch={dispatch} />
-        ))}
-    </div>
+    <>
+      <div style={styles.container}>
+        {news &&
+          news.map(_new => (
+            <NewsCardComponent
+              key={_new.id}
+              news={_new}
+              loading={loading}
+              dispatch={dispatch}
+            />
+          ))}
+      </div>
+      <div style={styles.paginationContainer}>
+        <TablePagination
+          component="div"
+          count={140}
+          rowsPerPage={size}
+          page={page}
+          onChangePage={handleChangePage}
+        />
+      </div>
+    </>
   );
 };
 

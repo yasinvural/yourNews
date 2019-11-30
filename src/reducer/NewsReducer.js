@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
     case "set_news":
       return {
         ...state,
-        news: [...state.news, ...action.payload]
+        news: [...action.payload]
       };
     case "set_page":
       return {
