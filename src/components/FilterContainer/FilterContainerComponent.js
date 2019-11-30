@@ -19,7 +19,7 @@ const FilterContainerComponent = () => {
   const [tagName, setTagName] = useState("");
   const [categoryAnchor, setCategoryAnchor] = useState(null);
   const [
-    { searchText, selectedCategories, tagNameList }, 
+    { searchText, selectedCategories, tagNameList },
     dispatch
   ] = useNewsValue();
 
@@ -114,7 +114,11 @@ const FilterContainerComponent = () => {
           transformOrigin={{ vertical: "top", horizontal: "center" }}
         >
           {categories.map(category => (
-            <div key={category.id} id={category.id} className="flex align-center">
+            <div
+              key={category.id}
+              id={category.id}
+              className="flex align-center"
+            >
               <Checkbox
                 color="primary"
                 onChange={() => handleSelectCategory(category.id)}

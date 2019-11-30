@@ -33,7 +33,11 @@ export const reducer = (state, action) => {
     case "set_searchText":
       return {
         ...state,
-        searchText: action.payload
+        searchText: action.payload,
+        pagination: {
+          ...state.pagination,
+          page: 0
+        }
       };
     case "set_selectedCategories":
       return {

@@ -21,7 +21,7 @@ const styles = {
 
 const NewsListComponent = () => {
   const totalCount = 53;
-  const [{ news, pagination, loading }, dispatch] = useNewsValue();
+  const [{ news, pagination, loading, searchText }, dispatch] = useNewsValue();
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
 
@@ -29,10 +29,11 @@ const NewsListComponent = () => {
     if (requestSent) return;
 
     const result = getNews({
-      pagination: {
+      "pagination": {
         page,
         size
-      }
+      },
+      "title.contains":searchText,
     });
     dispatch({
       type: "set_loading",
@@ -61,7 +62,7 @@ const NewsListComponent = () => {
         });
         setRequestSent(false);
       });
-  }, [page]);
+  }, [page,searchText]);
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);
