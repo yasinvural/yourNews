@@ -11,6 +11,18 @@ const styles = {
     flexWrap: "wrap",
     background: "#fcfcfc"
   },
+  emptyContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    background: "#fcfcfc",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "78vh",
+    fontSize:'25px',
+    color: '#cccccc',
+    letterSpacing: '30px'
+  },
   paginationContainer: {
     display: "flex",
     flex: "1",
@@ -72,29 +84,37 @@ const NewsListComponent = () => {
     });
   };
 
-  return (
-    <>
-      <div style={styles.container}>
-        {news.map(_new => (
-            <NewsCardComponent
-              key={_new.id}
-              news={_new}
-              loading={loading}
-              dispatch={dispatch}
+  const renderNews = () => {
+    if (news.length) {
+      return (
+        <>
+          <div style={styles.container}>
+            {news.map(_new => (
+              <NewsCardComponent
+                key={_new.id}
+                news={_new}
+                loading={loading}
+                dispatch={dispatch}
+              />
+            ))}
+          </div>
+          <div style={styles.paginationContainer}>
+            <TablePagination
+              component="div"
+              count={totalCount}
+              rowsPerPage={size}
+              page={page}
+              onChangePage={handleChangePage}
             />
-          ))}
-      </div>
-      <div style={styles.paginationContainer}>
-        <TablePagination
-          component="div"
-          count={totalCount}
-          rowsPerPage={size}
-          page={page}
-          onChangePage={handleChangePage}
-        />
-      </div>
-    </>
-  );
+          </div>
+        </>
+      );
+    } else {
+      return <div style={styles.emptyContainer}>NEWS NOT FOUND</div>;
+    }
+  };
+
+  return renderNews();
 };
 
 export default NewsListComponent;
