@@ -20,7 +20,7 @@ const styles = {
 };
 
 const NewsListComponent = () => {
-  const totalCount = 14;
+  const totalCount = 53;
   const [{ news, pagination, loading }, dispatch] = useNewsValue();
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
@@ -87,7 +87,7 @@ const NewsListComponent = () => {
       <div style={styles.paginationContainer}>
         <TablePagination
           component="div"
-          count={140}
+          count={totalCount}
           rowsPerPage={size}
           page={page}
           onChangePage={handleChangePage}
