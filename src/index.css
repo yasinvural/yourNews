@@ -182,20 +182,20 @@ table {
 .mb05 {
   margin-bottom: 0.5rem !important;
 }
-.ml1{
+.ml1 {
   margin-left: 1rem !important;
 }
-.mr1{
+.mr1 {
   margin-right: 1rem !important;
 }
 
-.p1{
+.p1 {
   padding: 1rem !important;
 }
-.p01{
+.p01 {
   padding: 0 1rem !important;
 }
-.p1-2{
+.p1-2 {
   padding: 0.5rem !important;
 }
 
@@ -218,10 +218,18 @@ table {
   max-width: 200px;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.align-self-start{
+.align-self-start {
   align-self: start;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
 }

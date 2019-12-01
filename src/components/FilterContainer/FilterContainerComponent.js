@@ -15,11 +15,16 @@ import { getCategories } from "../../services/CategoryService";
 import { useNewsValue } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
 
+const styles = {
+  background: "aliceblue"
+};
+
 const FilterContainerComponent = () => {
   const [categories, setCategories] = useState([]);
   const [tagName, setTagName] = useState("");
   const [categoryAnchor, setCategoryAnchor] = useState(null);
   const [{ selectedCategories, tagNameList }, dispatch] = useNewsValue();
+  const [isFixed, setIsFixed] = useState(false);
 
   useEffect(() => {
     async function fetchCategoriesData() {
@@ -32,6 +37,22 @@ const FilterContainerComponent = () => {
     }
     fetchCategoriesData();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleOnScroll);
+    return () => {
+      window.removeEventListener("scroll", handleOnScroll);
+    };
+  });
+
+  const handleOnScroll = () => {
+    let scroll =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    console.log(scroll);
+    if (scroll >= 100) setIsFixed(true);
+    else setIsFixed(false);
+  };
 
   const handleOpenCategories = e => {
     setCategoryAnchor(e.currentTarget);
@@ -99,9 +120,18 @@ const FilterContainerComponent = () => {
   };
 
   const openCategory = Boolean(categoryAnchor);
+
+  const containerClass = () => {
+    if (isFixed) {
+      return "flex p1 fixed";
+    } else {
+      return "flex p1";
+    }
+  };
+
   return (
     <>
-      <div className="flex p1">
+      <div style={styles} className={containerClass()}>
         <Button
           color="primary"
           onClick={handleOpenCategories}
