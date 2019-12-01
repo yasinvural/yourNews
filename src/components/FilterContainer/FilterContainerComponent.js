@@ -49,7 +49,6 @@ const FilterContainerComponent = () => {
     let scroll =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
-    console.log(scroll);
     if (scroll >= 100) setIsFixed(true);
     else setIsFixed(false);
   };

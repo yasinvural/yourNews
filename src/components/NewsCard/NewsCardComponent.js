@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Card,
   CardActionArea,
@@ -16,6 +16,7 @@ import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxCo
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
 import { likeNews, dislikeNews } from "../../services/LikeService";
+import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 const styles = {
   card: {
@@ -27,7 +28,7 @@ const styles = {
   }
 };
 
-const NewsCardComponent = ({ news, loading, dispatch }) => {
+const NewsCardComponent = memo(({ news, loading, dispatch }) => {
   const {
     id,
     title,
@@ -40,6 +41,8 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
     newsLikesCount,
     isLikedByUser
   } = news;
+  const forceUpdate = useForceUpdate();
+
   const renderTopOfTheCard = () => {
     if (loading) {
       return (
@@ -116,11 +119,12 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
         newsId: id,
         userId: 4
       };
-      const response = await likeNews(reqObj);
+      await likeNews(reqObj);
       dispatch({
         type: "set_likeNews",
         payload: id
       });
+      forceUpdate();
     };
 
     const handleDislikeNews = async () => {
@@ -128,11 +132,12 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
         newsId: id,
         userId: 4
       };
-      const response = await dislikeNews(reqObj);
+      await dislikeNews(reqObj);
       dispatch({
         type: "set_dislikeNews",
         payload: id
       });
+      forceUpdate();
     };
 
     if (loading) {
@@ -215,6 +220,6 @@ const NewsCardComponent = ({ news, loading, dispatch }) => {
       </Card>
     </>
   );
-};
+});
 
 export default NewsCardComponent;
