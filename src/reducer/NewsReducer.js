@@ -1,7 +1,7 @@
 export const initialState = {
   loading: false,
   news: [],
-  searchText: "56",
+  searchText: "",
   selectedCategories: [],
   tagNameList: [],
   pagination: {

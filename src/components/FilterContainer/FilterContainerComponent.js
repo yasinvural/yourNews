@@ -13,22 +13,20 @@ import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownO
 import SearchIcon from "@material-ui/icons/Search";
 import { getCategories } from "../../services/CategoryService";
 import { useNewsValue } from "../../context/NewsContext";
+import { debounce } from "../../utils/debounce";
 
 const FilterContainerComponent = () => {
   const [categories, setCategories] = useState([]);
   const [tagName, setTagName] = useState("");
   const [categoryAnchor, setCategoryAnchor] = useState(null);
-  const [
-    { searchText, selectedCategories, tagNameList },
-    dispatch
-  ] = useNewsValue();
+  const [{ selectedCategories, tagNameList }, dispatch] = useNewsValue();
 
   useEffect(() => {
-    async function fetchCategoriesData(){
-      try{
+    async function fetchCategoriesData() {
+      try {
         const result = await getCategories();
         setCategories(result);
-      }catch(err){
+      } catch (err) {
         console.warn(err);
       }
     }
@@ -57,13 +55,13 @@ const FilterContainerComponent = () => {
       });
     }
   };
-  const handleChangeSearchText = e => {
-    const searchText = e.target.value;
+  const handleChangeSearchText = debounce(searchText => {
     dispatch({
       type: "set_searchText",
       payload: searchText
     });
-  };
+  }, 500);
+
   const handleTagNameChange = e => {
     const tagName = e.target.value;
     setTagName(tagName);
@@ -135,8 +133,7 @@ const FilterContainerComponent = () => {
         <OutlinedInput
           placeholder="Type to search"
           className="flex1"
-          value={searchText}
-          onChange={handleChangeSearchText}
+          onChange={e => handleChangeSearchText(e.target.value)}
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon />
