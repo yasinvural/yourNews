@@ -19,7 +19,7 @@ class BaseService {
         if (success.status === 200 || success.status === 201) {
           if(success.headers["x-total-count"]){
             return {
-              data:success.data.data,
+              data:success.data,
               totalCount: success.headers["x-total-count"]
             }
           }else{

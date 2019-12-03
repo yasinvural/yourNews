@@ -25,19 +25,19 @@ const FilterContainerComponent = () => {
   const [categoryAnchor, setCategoryAnchor] = useState(null);
   const [{ selectedCategories, tagNameList }, dispatch] = useNewsValue();
   const [isFixed, setIsFixed] = useState(false);
-  /*
+  
   useEffect(() => {
     async function fetchCategoriesData() {
       try {
         const result = await getCategories();
-        setCategories(result);
+        setCategories(result.data);
       } catch (err) {
         console.warn(err);
       }
     }
     fetchCategoriesData();
   }, []);
-  */
+  
 
   useEffect(() => {
     window.addEventListener("scroll", handleOnScroll);
@@ -60,15 +60,15 @@ const FilterContainerComponent = () => {
   const handleCloseCategories = () => {
     setCategoryAnchor(null);
   };
-  const handleSelectCategory = id => {
-    if (selectedCategories.indexOf(id) === -1) {
+  const handleSelectCategory = (name) => {
+    if (selectedCategories.indexOf(name) === -1) {
       dispatch({
         type: "set_selectedCategories",
-        payload: [...selectedCategories, id]
+        payload: [...selectedCategories, name]
       });
     } else {
       const filteredSelectedCategories = selectedCategories.filter(
-        category => category !== id
+        category => category !== name
       );
       dispatch({
         type: "set_selectedCategories",
@@ -154,7 +154,7 @@ const FilterContainerComponent = () => {
             >
               <Checkbox
                 color="primary"
-                onChange={() => handleSelectCategory(category.id)}
+                onChange={() => handleSelectCategory(category.name)}
               />
               <Typography variant="subtitle2">{category.name}</Typography>
             </div>
