@@ -25,7 +25,7 @@ const FilterContainerComponent = () => {
   const [categoryAnchor, setCategoryAnchor] = useState(null);
   const [{ selectedCategories, tagNameList }, dispatch] = useNewsValue();
   const [isFixed, setIsFixed] = useState(false);
-
+  /*
   useEffect(() => {
     async function fetchCategoriesData() {
       try {
@@ -37,6 +37,7 @@ const FilterContainerComponent = () => {
     }
     fetchCategoriesData();
   }, []);
+  */
 
   useEffect(() => {
     window.addEventListener("scroll", handleOnScroll);

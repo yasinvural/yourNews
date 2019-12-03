@@ -3,7 +3,7 @@ import axios from "axios";
 class BaseService {
   constructor() {
     this.http = axios.create({
-      baseURL: "https://ataknewsserver.herokuapp.com/api/"
+      baseURL: "https://corrnews.herokuapp.com/api/"
     });
 
     this.http.interceptors.request.use(config => {
@@ -17,7 +17,14 @@ class BaseService {
     this.http.interceptors.response.use(
       success => {
         if (success.status === 200 || success.status === 201) {
-          return success.data;
+          if(success.headers["x-total-count"]){
+            return {
+              data:success.data.data,
+              totalCount: success.headers["x-total-count"]
+            }
+          }else{
+            return success.data;
+          }
         }
       },
       error => {

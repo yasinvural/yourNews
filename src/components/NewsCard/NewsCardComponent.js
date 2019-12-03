@@ -33,12 +33,12 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     id,
     title,
     description,
-    userImageUrl,
-    userLogin,
+    ownerProfilePhotoUrl,
+    ownerUsername,
     resources,
     newsComments,
-    newsCommentsCount,
-    newsLikesCount,
+    commentsCount,
+    likesCount,
     isLikedByUser
   } = news;
   const forceUpdate = useForceUpdate();
@@ -57,8 +57,8 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
           <div>
             <AvatarComponent
               size="small"
-              imageUrl={userImageUrl}
-              login={userLogin}
+              imageUrl={ownerProfilePhotoUrl}
+              login={ownerUsername}
             />
           </div>
           <div className="text-truncate">{title}</div>
@@ -86,7 +86,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
       ) {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={userImageUrl}>
+            <CardMedia style={styles.media} image={ownerProfilePhotoUrl}>
               {/* <video width="100%" controls>
                 <source src={resources[0].resourceName} type="video/mp4" />
                 <source src={resources[0].resourceName} type="video/ogg" />
@@ -152,7 +152,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
         <CardActions>
           <div className="ml1">
             <Badge
-              badgeContent={newsLikesCount}
+              badgeContent={likesCount}
               className="pointer"
               color="primary"
             >
@@ -168,7 +168,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
           </div>
           <div className="ml1">
             <Badge
-              badgeContent={newsCommentsCount}
+              badgeContent={commentsCount}
               className="pointer"
               color="primary"
             >
@@ -216,7 +216,6 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
         {renderTopOfTheCard()}
         {renderMediaOfTheCard()}
         {renderBottomOfTheCard()}
-        {renderCommentBox()}
       </Card>
     </>
   );

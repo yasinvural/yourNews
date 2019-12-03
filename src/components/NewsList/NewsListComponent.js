@@ -32,10 +32,10 @@ const styles = {
 };
 
 const NewsListComponent = () => {
-  const totalCount = 53;
-  const [{ news, pagination, loading, searchText }, dispatch] = useNewsValue();
+  const [{ news, pagination, loading, searchText,tagNameList }, dispatch] = useNewsValue();
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
+  const [totalCount, setTotalCount] = useState(false);
 
   useEffect(() => {
     if (requestSent) return;
@@ -51,12 +51,14 @@ const NewsListComponent = () => {
             page,
             size
           },
-          "title.contains": searchText
+          "title": searchText,
+          "tags":tagNameList,
         });
         dispatch({
           type: "set_news",
           payload: result.data
         });
+        setTotalCount(Number(result.totalCount))
         setTimeout(() => {
           dispatch({
             type: "set_loading",
@@ -74,7 +76,7 @@ const NewsListComponent = () => {
       }
     }
     fetchNewsData();
-  }, [page, searchText]);
+  }, [page, searchText,tagNameList]);
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);
