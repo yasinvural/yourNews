@@ -57,7 +57,7 @@ const NewsListComponent = () => {
         });
         dispatch({
           type: "set_news",
-          payload: result.data.data
+          payload: result.data
         });
         setTotalCount(Number(result.totalCount))
         setTimeout(() => {
