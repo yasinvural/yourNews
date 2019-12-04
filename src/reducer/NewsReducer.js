@@ -52,8 +52,8 @@ export const reducer = (state, action) => {
     case "set_likeNews":
       const filteredLikeNews = state.news.map(_news => {
         if (_news.id === action.payload) {
-          _news.isLikedByUser = true;
-          _news.newsLikesCount = _news.newsLikesCount + 1;
+          _news.likedByUser = true;
+          _news.likesCount = _news.likesCount + 1;
         }
         return _news;
       });
@@ -62,16 +62,16 @@ export const reducer = (state, action) => {
         news: [...filteredLikeNews]
       };
     case "set_dislikeNews":
-      const filteredDislikeNews = state.news.map(_news => {
+      const filteredDisLikeNews = state.news.map(_news => {
         if (_news.id === action.payload) {
-          _news.isLikedByUser = false;
-          _news.newsLikesCount = _news.newsLikesCount - 1;
+          _news.likedByUser = false;
+          _news.likesCount = _news.likesCount - 1;
         }
         return _news;
       });
       return {
         ...state,
-        news: [...filteredDislikeNews]
+        news: [...filteredDisLikeNews]
       };
     default:
       return state;

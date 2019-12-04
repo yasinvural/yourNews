@@ -15,7 +15,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxComponent";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
-import { likeNews, dislikeNews } from "../../services/LikeService";
+import { likeDislikeNews } from "../../services/LikeService";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 const styles = {
@@ -39,7 +39,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     newsComments,
     commentsCount,
     likesCount,
-    isLikedByUser
+    likedByUser
   } = news;
   const forceUpdate = useForceUpdate();
 
@@ -115,24 +115,15 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
 
   const renderBottomOfTheCard = () => {
     const handleLikeNews = async () => {
-      const reqObj = {
-        newsId: id,
-        userId: 4
-      };
-      await likeNews(reqObj);
+      await likeDislikeNews({ id });
       dispatch({
         type: "set_likeNews",
         payload: id
       });
       forceUpdate();
     };
-
     const handleDislikeNews = async () => {
-      const reqObj = {
-        newsId: id,
-        userId: 4
-      };
-      await dislikeNews(reqObj);
+      await likeDislikeNews({ id });
       dispatch({
         type: "set_dislikeNews",
         payload: id
@@ -156,7 +147,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               className="pointer"
               color="primary"
             >
-              {isLikedByUser ? (
+              {likedByUser ? (
                 <FavoriteIcon
                   style={{ color: "red" }}
                   onClick={handleDislikeNews}
