@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Popover, Button } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Popover,
+  Button,
+  OutlinedInput,
+  InputAdornment,
+  TextField
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
+import { useNewsValue } from "../../context/NewsContext";
+import { debounce } from "../../utils/debounce";
 
 const AppBarComponent = ({ history }) => {
+  const [{}, dispatch] = useNewsValue();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleAnchorClick = event => {
@@ -35,11 +47,29 @@ const AppBarComponent = ({ history }) => {
     );
   };
 
+  const handleChangeSearchText = debounce(searchText => {
+    dispatch({
+      type: "set_searchText",
+      payload: searchText
+    });
+  }, 500);
+
   return (
     <>
       <AppBar position="static">
         <Toolbar className="justify-space-between">
           <div>Your News</div>
+          <OutlinedInput
+            placeholder="Type to search"
+            className="flex1 mr2 ml2"
+            onChange={e => handleChangeSearchText(e.target.value)}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+          />
+
           {renderAvatar()}
           <Popover
             open={open}

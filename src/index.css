@@ -189,6 +189,13 @@ table {
   margin-right: 1rem !important;
 }
 
+.ml2 {
+  margin-left: 2rem !important;
+}
+.mr2 {
+  margin-right: 2rem !important;
+}
+
 .p1 {
   padding: 1rem !important;
 }
