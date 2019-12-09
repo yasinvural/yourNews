@@ -22,3 +22,7 @@
 .MuiTablePagination-root .MuiToolbar-root .MuiTablePagination-input{
     display:none
 }
+
+.MuiTabs-scroller .MuiTabs-flexContainer .MuiTab-textColorInherit {
+    text-transform : inherit;
+}

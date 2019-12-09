@@ -2,6 +2,7 @@ export const initialState = {
   loading: false,
   news: [],
   searchText: "",
+  selectedCategory: "",
   selectedCategories: [],
   tagNameList: [],
   pagination: {
@@ -38,6 +39,11 @@ export const reducer = (state, action) => {
           ...state.pagination,
           page: 0
         }
+      };
+    case "set_selectedCategory":
+      return {
+        ...state,
+        selectedCategory: action.payload
       };
     case "set_selectedCategories":
       return {
