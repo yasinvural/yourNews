@@ -17,12 +17,12 @@ class BaseService {
     this.http.interceptors.response.use(
       success => {
         if (success.status === 200 || success.status === 201) {
-          if(success.headers["x-total-count"]){
+          if (success.headers["x-total-count"]) {
             return {
-              data:success.data.data,
+              data: success.data.data,
               totalCount: success.headers["x-total-count"]
-            }
-          }else{
+            };
+          } else {
             return success.data;
           }
         }
@@ -32,9 +32,11 @@ class BaseService {
           throw Error("Bad Request");
         }
         if (error.response.status === 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
           throw Error("UnAuthorized");
         }
-        if(error.response.status === 404) {
+        if (error.response.status === 404) {
           throw Error("Not Found");
         }
       }
