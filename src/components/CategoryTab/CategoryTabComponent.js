@@ -6,7 +6,7 @@ import { useNewsValue } from "../../context/NewsContext";
 const CategoryTabComponent = () => {
   const [tabValue, setTabValue] = useState(0);
   const [categories, setCategories] = useState([]);
-  const [{ selectedCategory }, dispatch] = useNewsValue();
+  const [{}, dispatch] = useNewsValue();
 
   useEffect(() => {
     async function fetchCategoriesData() {

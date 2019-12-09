@@ -26,3 +26,7 @@
 .MuiTabs-scroller .MuiTabs-flexContainer .MuiTab-textColorInherit {
     text-transform : inherit;
 }
+
+.MuiOutlinedInput-notchedOutline {
+    border-color: #e2dcdc !important;
+}

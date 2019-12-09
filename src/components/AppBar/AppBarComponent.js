@@ -5,13 +5,16 @@ import {
   Popover,
   Button,
   OutlinedInput,
-  InputAdornment,
-  TextField
+  InputAdornment
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import { useNewsValue } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
+
+const styles = {
+  color: "white",
+};
 
 const AppBarComponent = ({ history }) => {
   const [{}, dispatch] = useNewsValue();
@@ -60,16 +63,16 @@ const AppBarComponent = ({ history }) => {
         <Toolbar className="justify-space-between">
           <div>Your News</div>
           <OutlinedInput
-            placeholder="Type to search"
+            style={styles}
+            placeholder="Search News"
             className="flex1 mr2 ml2"
             onChange={e => handleChangeSearchText(e.target.value)}
             startAdornment={
-              <InputAdornment position="start">
+              <InputAdornment style={styles} position="start">
                 <SearchIcon />
               </InputAdornment>
             }
           />
-
           {renderAvatar()}
           <Popover
             open={open}
