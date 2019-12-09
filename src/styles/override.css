@@ -30,3 +30,14 @@
 .MuiOutlinedInput-notchedOutline {
     border-color: #e2dcdc !important;
 }
+
+.MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
+    width: auto !important;
+    min-width: auto !important;
+    padding: 6px;
+}
+
+.MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root .MuiTab-wrapper{
+    width: auto !important;
+    padding: 6px;
+}

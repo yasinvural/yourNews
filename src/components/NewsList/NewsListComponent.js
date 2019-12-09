@@ -33,7 +33,7 @@ const styles = {
 
 const NewsListComponent = () => {
   const [
-    { news, pagination, loading, searchText, tagNameList, selectedCategory },
+    { news, pagination, loading, searchText, selectedCategory },
     dispatch
   ] = useNewsValue();
   const { page, size } = pagination;
@@ -55,7 +55,6 @@ const NewsListComponent = () => {
             size
           },
           title: searchText,
-          tags: tagNameList,
           categoryName: selectedCategory
         });
         dispatch({
@@ -80,7 +79,7 @@ const NewsListComponent = () => {
       }
     }
     fetchNewsData();
-  }, [page, searchText, tagNameList, selectedCategory]);
+  }, [page, searchText, selectedCategory]);
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);

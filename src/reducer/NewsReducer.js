@@ -3,7 +3,6 @@ export const initialState = {
   news: [],
   searchText: "",
   selectedCategory: "",
-  tagNameList: [],
   pagination: {
     page: 0,
     size: 10
@@ -43,11 +42,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         selectedCategory: action.payload
-      };
-    case "set_tagNameList":
-      return {
-        ...state,
-        tagNameList: action.payload
       };
     case "set_likeNews":
       const filteredLikeNews = state.news.map(_news => {
