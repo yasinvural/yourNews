@@ -19,9 +19,9 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "78vh",
-    fontSize:'25px',
-    color: '#cccccc',
-    letterSpacing: '30px'
+    fontSize: "25px",
+    color: "#cccccc",
+    letterSpacing: "30px"
   },
   paginationContainer: {
     display: "flex",
@@ -32,7 +32,10 @@ const styles = {
 };
 
 const NewsListComponent = () => {
-  const [{ news, pagination, loading, searchText,tagNameList, selectedCategories }, dispatch] = useNewsValue();
+  const [
+    { news, pagination, loading, searchText, tagNameList, selectedCategory },
+    dispatch
+  ] = useNewsValue();
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
   const [totalCount, setTotalCount] = useState(false);
@@ -51,15 +54,15 @@ const NewsListComponent = () => {
             page,
             size
           },
-          "title": searchText,
-          "tags":tagNameList,
-          "categoryNames":selectedCategories,
+          title: searchText,
+          tags: tagNameList,
+          categoryName: selectedCategory
         });
         dispatch({
           type: "set_news",
           payload: result.data
         });
-        setTotalCount(Number(result.totalCount))
+        setTotalCount(Number(result.totalCount));
         setTimeout(() => {
           dispatch({
             type: "set_loading",
@@ -77,7 +80,7 @@ const NewsListComponent = () => {
       }
     }
     fetchNewsData();
-  }, [page, searchText,tagNameList,selectedCategories]);
+  }, [page, searchText, tagNameList, selectedCategory]);
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);

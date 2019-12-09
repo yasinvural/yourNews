@@ -3,7 +3,6 @@ export const initialState = {
   news: [],
   searchText: "",
   selectedCategory: "",
-  selectedCategories: [],
   tagNameList: [],
   pagination: {
     page: 0,
@@ -44,11 +43,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         selectedCategory: action.payload
-      };
-    case "set_selectedCategories":
-      return {
-        ...state,
-        selectedCategories: action.payload
       };
     case "set_tagNameList":
       return {

@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  Checkbox,
-  Popover,
-  Button,
-  Typography,
   OutlinedInput,
   InputAdornment,
   TextField,
   Chip
-} from "@material-ui/core";
-import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
+} from "@material-ui/core"; 
 import SearchIcon from "@material-ui/icons/Search";
-import { getCategories } from "../../services/CategoryService";
 import { useNewsValue } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
 
@@ -20,24 +14,9 @@ const styles = {
 };
 
 const FilterContainerComponent = () => {
-  const [categories, setCategories] = useState([]);
   const [tagName, setTagName] = useState("");
-  const [categoryAnchor, setCategoryAnchor] = useState(null);
-  const [{ selectedCategories, tagNameList }, dispatch] = useNewsValue();
+  const [{ tagNameList }, dispatch] = useNewsValue();
   const [isFixed, setIsFixed] = useState(false);
-  
-  useEffect(() => {
-    async function fetchCategoriesData() {
-      try {
-        const result = await getCategories();
-        setCategories(result.data);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-    fetchCategoriesData();
-  }, []);
-  
 
   useEffect(() => {
     window.addEventListener("scroll", handleOnScroll);
@@ -54,28 +33,6 @@ const FilterContainerComponent = () => {
     else setIsFixed(false);
   };
 
-  const handleOpenCategories = e => {
-    setCategoryAnchor(e.currentTarget);
-  };
-  const handleCloseCategories = () => {
-    setCategoryAnchor(null);
-  };
-  const handleSelectCategory = (name) => {
-    if (selectedCategories.indexOf(name) === -1) {
-      dispatch({
-        type: "set_selectedCategories",
-        payload: [...selectedCategories, name]
-      });
-    } else {
-      const filteredSelectedCategories = selectedCategories.filter(
-        category => category !== name
-      );
-      dispatch({
-        type: "set_selectedCategories",
-        payload: filteredSelectedCategories
-      });
-    }
-  };
   const handleChangeSearchText = debounce(searchText => {
     dispatch({
       type: "set_searchText",
@@ -87,6 +44,7 @@ const FilterContainerComponent = () => {
     const tagName = e.target.value;
     setTagName(tagName);
   };
+
   const handleTagNameKeyPress = e => {
     if (e.key === "Enter") {
       if (tagNameList.indexOf(tagName) === -1) {
@@ -119,8 +77,6 @@ const FilterContainerComponent = () => {
     }
   };
 
-  const openCategory = Boolean(categoryAnchor);
-
   const containerClass = () => {
     if (isFixed) {
       return "flex p1 fixed";
@@ -132,34 +88,6 @@ const FilterContainerComponent = () => {
   return (
     <>
       <div style={styles} className={containerClass()}>
-        <Button
-          color="primary"
-          onClick={handleOpenCategories}
-          className="flex1"
-        >
-          Categories <KeyboardArrowDownOutlinedIcon />
-        </Button>
-        <Popover
-          open={openCategory}
-          anchorEl={categoryAnchor}
-          onClose={handleCloseCategories}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          transformOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          {categories.map(category => (
-            <div
-              key={category.id}
-              id={category.id}
-              className="flex align-center"
-            >
-              <Checkbox
-                color="primary"
-                onChange={() => handleSelectCategory(category.name)}
-              />
-              <Typography variant="subtitle2">{category.name}</Typography>
-            </div>
-          ))}
-        </Popover>
         <OutlinedInput
           placeholder="Type to search"
           className="flex1"

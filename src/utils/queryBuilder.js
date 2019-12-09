@@ -9,10 +9,6 @@ export const createQueryFromObject = reqObj => {
       reqObj[key].forEach(t => {
         query += `tag=${t}&`;
       });
-    } else if(key === "categoryNames") {
-      reqObj[key].forEach(c => {
-        query += `categoryNames=${c}&`;
-      });
     } else {
       query += `${key}=${reqObj[key]}&`;
     }
