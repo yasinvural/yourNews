@@ -12,10 +12,11 @@ const CategoryTabComponent = () => {
     async function fetchCategoriesData() {
       try {
         const result = await getCategories();
-        setCategories(result.data);
+        const all = { id: "000", name: "All" };
+        setCategories([all, ...result.data]);
         dispatch({
           type: "set_selectedCategory",
-          payload: result.data[0].name
+          payload: "All"
         });
       } catch (err) {
         console.warn(err);
