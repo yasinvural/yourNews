@@ -55,7 +55,7 @@ const NewsListComponent = () => {
             size
           },
           title: searchText,
-          categoryName: selectedCategory
+          categoryNames: selectedCategory
         });
         dispatch({
           type: "set_news",
