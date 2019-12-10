@@ -29,6 +29,10 @@ const CategoryTabComponent = () => {
     setTabValue(newValue);
     const tabName = event.currentTarget.id;
     dispatch({
+      type: "set_page",
+      payload: 0
+    });
+    dispatch({
       type: "set_selectedCategory",
       payload: tabName
     });
