@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardActionArea,
@@ -34,6 +35,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     title,
     description,
     ownerProfilePhotoUrl,
+    ownerId,
     ownerUsername,
     resources,
     newsComments,
@@ -41,9 +43,15 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     likesCount,
     likedByUser
   } = news;
+  const history = useHistory();
   const forceUpdate = useForceUpdate();
 
   const renderTopOfTheCard = () => {
+    
+    const handleGoToUserPage = () => {
+      history.push(`/user/${ownerId}`);
+    };
+
     if (loading) {
       return (
         <div className="flex justify-space-between p1 align-center">
@@ -54,7 +62,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     } else {
       return (
         <div className="flex justify-space-between p1 align-center">
-          <div>
+          <div onClick={handleGoToUserPage}>
             <AvatarComponent
               size="small"
               imageUrl={ownerProfilePhotoUrl}

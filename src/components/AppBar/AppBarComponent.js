@@ -19,6 +19,7 @@ const styles = {
 const AppBarComponent = ({ history }) => {
   const [{}, dispatch] = useNewsValue();
   const [anchorEl, setAnchorEl] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleAnchorClick = event => {
     setAnchorEl(event.currentTarget);
@@ -26,6 +27,10 @@ const AppBarComponent = ({ history }) => {
 
   const handleAnchorClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleGoToMyProfile = () => {
+    history.push(`/user/${user.id}`)
   };
 
   const handleLogout = () => {
@@ -38,7 +43,7 @@ const AppBarComponent = ({ history }) => {
   const open = Boolean(anchorEl);
 
   const renderAvatar = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    
     const { imageUrl, login } = user;
     return (
       <AvatarComponent
@@ -87,7 +92,10 @@ const AppBarComponent = ({ history }) => {
               horizontal: "center"
             }}
           >
-            <div className="mt1 mb1 ml1 mr1">
+            <div className="mt1 mb1 ml1 mr1 flex flex-column">
+            <Button color="primary" onClick={handleGoToMyProfile}>
+                My Profile
+              </Button>
               <Button color="primary" onClick={handleLogout}>
                 Logout
               </Button>
