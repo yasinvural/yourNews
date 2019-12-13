@@ -61,12 +61,12 @@ const RegisterComponent = ({ history }) => {
         style={paperContainerStyle}
         className="flex flex-column align-center"
       >
-        <div className="mt1">
+        <div className="margin-top-1">
           <div>Your News</div>
         </div>
-        <div className="mt2 mb1">
+        <div className="margin-top-2 margin-bottom-1">
           <form onSubmit={registerSubmit}>
-            <div className="mt1">
+            <div className="margin-top-1">
               <TextField
                 label="Username"
                 variant="outlined"
@@ -74,7 +74,7 @@ const RegisterComponent = ({ history }) => {
                 onChange={handleLoginChange}
               />
             </div>
-            <div className="mt1">
+            <div className="margin-top-1">
               <TextField
                 label="Email"
                 variant="outlined"
@@ -82,7 +82,7 @@ const RegisterComponent = ({ history }) => {
                 onChange={handleEmailChange}
               />
             </div>
-            <div className="mt1">
+            <div className="margin-top-1">
               <TextField
                 label="Password"
                 type="password"
@@ -91,7 +91,7 @@ const RegisterComponent = ({ history }) => {
                 onChange={handlePasswordChange}
               />
             </div>
-            <div className="mt1 textAlignRight">
+            <div className="margin-top-1 text-align-right">
               <Button
                 variant="contained"
                 color="primary"

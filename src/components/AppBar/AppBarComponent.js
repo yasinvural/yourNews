@@ -70,7 +70,7 @@ const AppBarComponent = ({ history }) => {
           <OutlinedInput
             style={styles}
             placeholder="Search News"
-            className="flex1 mr2 ml2"
+            className="flex-1 margin-right-2 margin-left-2"
             onChange={e => handleChangeSearchText(e.target.value)}
             startAdornment={
               <InputAdornment style={styles} position="start">
@@ -92,7 +92,7 @@ const AppBarComponent = ({ history }) => {
               horizontal: "center"
             }}
           >
-            <div className="mt1 mb1 ml1 mr1 flex flex-column">
+            <div className="margin-1 flex flex-column">
             <Button color="primary" onClick={handleGoToMyProfile}>
                 My Profile
               </Button>

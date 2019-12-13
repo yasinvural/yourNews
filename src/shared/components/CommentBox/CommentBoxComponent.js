@@ -52,18 +52,18 @@ const CommentBoxComponent = ({
               horizontal: "center"
             }}
           >
-            <div className="p1 pointer" onClick={()=>deleteComment(id)}>Delete Comment</div>
+            <div className="padding-1 pointer" onClick={()=>deleteComment(id)}>Delete Comment</div>
           </Popover>
         </div>
       );
     }
   };
   return (
-    <Card className="flex p1 align-center">
+    <Card className="flex padding-1 align-center">
       <div>
         <Avatar src={userImageUrl} />
       </div>
-      <div className="flex flex-column ml1 mr1 flex1">
+      <div className="flex flex-column margin-left-1 margin-right-1 flex-1">
         <div className="flex justify-space-between align-center">
           <Typography variant="h6">{userLogin}</Typography>
           <Typography variant="caption">

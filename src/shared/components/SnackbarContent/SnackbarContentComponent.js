@@ -26,7 +26,7 @@ const SnackbarContentComponent = ({ variant, message }) => {
         message={
           <span className="flex align-center">
             <Icon />
-            <span className="ml1">{message}</span>
+            <span className="margin-left-1">{message}</span>
           </span>
         }
       />

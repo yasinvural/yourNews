@@ -1,43 +1,58 @@
-
 .MuiOutlinedInput-input {
-    padding: 8px 14px !important;
+  padding: 8px 14px !important;
 }
 
 .MuiInputLabel-outlined {
-    transform: translate(14px, 12px) scale(1) !important;
+  transform: translate(14px, 12px) scale(1) !important;
 }
 
-.MuiInputLabel-outlined.MuiInputLabel-shrink{
-	transform: translate(14px, -6px) scale(0.75) !important;
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  transform: translate(14px, -6px) scale(0.75) !important;
 }
 
-.MuiCardActions-spacing > :not(:first-child){
-    margin-left: 16px !important;
+.MuiCardActions-spacing > :not(:first-child) {
+  margin-left: 16px !important;
 }
 
-.MuiTablePagination-root .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters p:first-of-type{
+.MuiTablePagination-root {
+  .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters
+    p:first-of-type {
     display: none;
+  }
 }
 
-.MuiTablePagination-root .MuiToolbar-root .MuiTablePagination-input{
-    display:none
+.MuiTablePagination-root {
+  .MuiToolbar-root {
+    .MuiTablePagination-input {
+      display: none;
+    }
+  }
 }
 
-.MuiTabs-scroller .MuiTabs-flexContainer .MuiTab-textColorInherit {
-    text-transform : inherit;
+.MuiTabs-scroller {
+  .MuiTabs-flexContainer {
+    .MuiTab-textColorInherit {
+      text-transform: inherit;
+    }
+  }
 }
 
 .MuiOutlinedInput-notchedOutline {
-    border-color: #e2dcdc !important;
+  border-color: #e2dcdc !important;
 }
 
-.MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
-    width: auto !important;
-    min-width: auto !important;
-    padding: 6px;
-}
-
-.MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root .MuiTab-wrapper{
-    width: auto !important;
-    padding: 6px;
+.MuiTabs-root {
+  .MuiTabs-scroller {
+    .MuiTabs-flexContainer {
+      .MuiButtonBase-root {
+        width: auto !important;
+        min-width: auto !important;
+        padding: 6px;
+        .MuiTab-wrapper {
+          width: auto !important;
+          padding: 6px;
+        }
+      }
+    }
+  }
 }

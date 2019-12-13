@@ -79,9 +79,9 @@ const FilterContainerComponent = () => {
 
   const containerClass = () => {
     if (isFixed) {
-      return "flex p1 fixed";
+      return "flex padding-1 fixed";
     } else {
-      return "flex p1";
+      return "flex padding-1";
     }
   };
 
@@ -90,7 +90,7 @@ const FilterContainerComponent = () => {
       <div style={styles} className={containerClass()}>
         <OutlinedInput
           placeholder="Type to search"
-          className="flex1"
+          className="flex-1"
           onChange={e => handleChangeSearchText(e.target.value)}
           startAdornment={
             <InputAdornment position="start">
@@ -98,7 +98,7 @@ const FilterContainerComponent = () => {
             </InputAdornment>
           }
         />
-        <div className="flex align-center flex1">
+        <div className="flex align-center flex-1">
           <TextField
             placeholder="Enter tag name"
             value={tagName}

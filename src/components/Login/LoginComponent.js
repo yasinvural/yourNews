@@ -70,12 +70,12 @@ const LoginComponent = ({ history }) => {
         style={paperContainerStyle}
         className="flex flex-column align-center"
       >
-        <div className="mt1">
+        <div className="margin-top-1">
           <div>Your News</div>
         </div>
-        <div className="mt2 mb1">
+        <div className="margin-top-2 margin-bottom-1">
           <form onSubmit={loginSubmit}>
-            <div className="mt1">
+            <div className="margin-top-1">
               <TextField
                 label="Username"
                 variant="outlined"
@@ -83,7 +83,7 @@ const LoginComponent = ({ history }) => {
                 onChange={handleUsernameChange}
               />
             </div>
-            <div className="mt1">
+            <div className="margin-top-1">
               <TextField
                 label="Password"
                 type="password"
@@ -92,13 +92,13 @@ const LoginComponent = ({ history }) => {
                 onChange={handlePasswordChange}
               />
             </div>
-            <div className="flex mt1">
-              <div className="flex1">
+            <div className="flex margin-top-1">
+              <div className="flex-1">
                 <Button color="primary" onClick={handleGoToRegisterPage}>
                   Sign up
                 </Button>
               </div>
-              <div className="flex1 textAlignRight">
+              <div className="flex-1 text-align-right">
                 <Button
                   variant="contained"
                   color="primary"

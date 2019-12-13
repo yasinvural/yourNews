@@ -54,14 +54,14 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
 
     if (loading) {
       return (
-        <div className="flex justify-space-between p1 align-center">
+        <div className="flex justify-space-between padding-1 align-center">
           <Skeleton variant="circle" width={40} height={40} />
           <Skeleton height={10} width="80%" />
         </div>
       );
     } else {
       return (
-        <div className="flex justify-space-between p1 align-center">
+        <div className="flex justify-space-between padding-1 align-center">
           <div onClick={handleGoToUserPage}>
             <AvatarComponent
               size="small"
@@ -149,7 +149,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     } else {
       return (
         <CardActions>
-          <div className="ml1">
+          <div className="margin-left-1">
             <Badge
               badgeContent={likesCount}
               className="pointer"
@@ -165,7 +165,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               )}
             </Badge>
           </div>
-          <div className="ml1">
+          <div className="margin-left-1">
             <Badge
               badgeContent={commentsCount}
               className="pointer"
@@ -186,7 +186,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
       if (loading) {
         return (
           <>
-            <div className="flex justify-space-between p1 align-center">
+            <div className="flex justify-space-between padding-1 align-center">
               <Skeleton variant="circle" width={40} height={40} />
               <Skeleton height={20} width="80%" />
             </div>
