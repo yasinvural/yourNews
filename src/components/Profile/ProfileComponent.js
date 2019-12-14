@@ -5,7 +5,9 @@ import {
   Card,
   CardMedia,
   CardContent,
-  TablePagination
+  TablePagination,
+  Tabs,
+  Tab
 } from "@material-ui/core";
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getUser } from "../../services/UserService";
@@ -54,8 +56,9 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   const [user, setUser] = useState({});
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+  const [tabValue, setTabValue] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -128,9 +131,12 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   };
 
   const handleFollowUser = async () => {
-    console.log("follow click");
     const result = await followUser(username);
-    debugger;
+    console.log(result);
+  };
+
+  const handleTabValueChange = (event, newValue) => {
+    setTabValue(newValue);
   };
 
   return (
@@ -169,7 +175,17 @@ const ProfileComponent = ({ username, userImageUrl }) => {
           </div>
         </CardContent>
       </Card>
-      {renderNews()}
+      <Tabs
+        value={tabValue}
+        variant="scrollable"
+        indicatorColor="primary"
+        onChange={handleTabValueChange}
+      >
+        <Tab key={0} label="News" />
+        <Tab key={1} label="Followers" />
+      </Tabs>
+      {tabValue === 0 && renderNews()}
+      {tabValue === 1 && <div>followers will be here.</div>}
     </>
   );
 };
