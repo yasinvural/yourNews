@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Button,
   Card,
   CardMedia,
   CardContent,
@@ -9,6 +10,7 @@ import {
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getUser } from "../../services/UserService";
 import { getNews } from "../../services/NewsService";
+import { followUser } from "../../services/FollowService";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -115,6 +117,12 @@ const ProfileComponent = ({ username, userImageUrl }) => {
     }
   };
 
+  const handleFollowUser = async () => {
+    console.log("follow click");
+    const result = await followUser(username);
+    debugger
+  };
+
   return (
     <>
       <Card className={classes.card}>
@@ -147,7 +155,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
                 user.followerStatistics &&
                 user.followerStatistics.waitingRequestCount}
             </div>
-            <div>Follow</div>
+            <Button onClick={handleFollowUser}>Follow</Button>
           </div>
         </CardContent>
       </Card>
