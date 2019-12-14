@@ -50,8 +50,11 @@ const styles = {
 };
 
 const ProfileComponent = ({ username, userImageUrl }) => {
+  const size = 10;
   const [user, setUser] = useState({});
   const [news, setNews] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
@@ -69,23 +72,30 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   useEffect(() => {
     async function fetchUserNews() {
       try {
+        setLoading(true);
         const result = await getNews({
           pagination: {
-            page: 0,
-            size: 10
+            page,
+            size
           },
           ownerUsernames: username
         });
         setNews(result.data);
         setTotalCount(Number(result.totalCount));
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     }
     fetchUserNews();
-  }, [username]);
+  }, [username, page]);
 
   const classes = useStyles();
+
+  const handleChangePage = (event, newPage) => {
+    window.scrollTo(0, 0);
+    setPage(newPage);
+  };
 
   const renderNews = () => {
     if (news.length) {
@@ -96,7 +106,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
               <NewsCardComponent
                 key={_new.id}
                 news={_new}
-                loading={false}
+                loading={loading}
                 dispatch={null}
               />
             ))}
@@ -105,9 +115,9 @@ const ProfileComponent = ({ username, userImageUrl }) => {
             <TablePagination
               component="div"
               count={totalCount}
-              rowsPerPage={10}
-              page={0}
-              onChangePage={() => {}}
+              rowsPerPage={size}
+              page={page}
+              onChangePage={handleChangePage}
             />
           </div>
         </>
@@ -120,7 +130,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   const handleFollowUser = async () => {
     console.log("follow click");
     const result = await followUser(username);
-    debugger
+    debugger;
   };
 
   return (
