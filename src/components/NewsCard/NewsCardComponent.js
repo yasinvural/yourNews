@@ -49,7 +49,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
   const renderTopOfTheCard = () => {
     
     const handleGoToUserPage = () => {
-      history.push(`/user/${ownerId}`);
+      history.push(`/user/${ownerUsername}`);
     };
 
     if (loading) {

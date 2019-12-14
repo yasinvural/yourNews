@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardMedia, CardContent } from "@material-ui/core";
 
@@ -13,6 +13,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProfileComponent = ({ username, userImageUrl }) => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    //TODO: get user data
+  }, [username]);
+
   const classes = useStyles();
   return (
     <>

@@ -30,7 +30,7 @@ const AppBarComponent = ({ history }) => {
   };
 
   const handleGoToMyProfile = () => {
-    history.push(`/user/${user.id}`)
+    history.push(`/user/${user.login}`)
   };
 
   const handleLogout = () => {

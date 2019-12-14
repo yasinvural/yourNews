@@ -15,7 +15,7 @@ function App() {
         component={AuthenticationHOC(withRouter(MainPage))}
       />
       <Route
-        path="/user/:id"
+        path="/user/:name"
         component={AuthenticationHOC(withRouter(UserPage))}
       />
       <Route path="/login" component={withRouter(LoginPage)} />
