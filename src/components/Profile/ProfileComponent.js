@@ -12,7 +12,11 @@ import {
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getUser } from "../../services/UserService";
 import { getNews } from "../../services/NewsService";
-import { followUser } from "../../services/FollowService";
+import {
+  followUser,
+  followedUser,
+  unFollowUser
+} from "../../services/FollowService";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,6 +63,24 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   const [totalCount, setTotalCount] = useState(0);
   const [tabValue, setTabValue] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showFollowButton, setShowFollowButton] = useState(true);
+
+  useEffect(() => {
+    async function fetchFollowedUser() {
+      try {
+        const result = await followedUser(username);
+        if (result.data) {
+          setShowFollowButton(false);
+        } else {
+          setShowFollowButton(true);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // TODO: do not call if username === localStorage.user.login
+    fetchFollowedUser();
+  }, [username]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -132,7 +154,16 @@ const ProfileComponent = ({ username, userImageUrl }) => {
 
   const handleFollowUser = async () => {
     const result = await followUser(username);
-    console.log(result);
+    if (result.data) {
+      setShowFollowButton(false);
+    }
+  };
+
+  const handleUnfollowUser = async () => {
+    const result = await unFollowUser(username);
+    if (result.data){
+      setShowFollowButton(true);
+    }
   };
 
   const handleTabValueChange = (event, newValue) => {
@@ -171,7 +202,11 @@ const ProfileComponent = ({ username, userImageUrl }) => {
                 user.followerStatistics &&
                 user.followerStatistics.waitingRequestCount}
             </div>
-            <Button onClick={handleFollowUser}>Follow</Button>
+            {showFollowButton ? (
+              <Button onClick={handleFollowUser}>Follow</Button>
+            ) : (
+              <Button onClick={handleUnfollowUser}>Unfollow</Button>
+            )}
           </div>
         </CardContent>
       </Card>
