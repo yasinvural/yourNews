@@ -32,15 +32,11 @@ const styles = {
 const NewsCardComponent = memo(({ news, loading, dispatch }) => {
   const {
     id,
-    title,
-    description,
     ownerProfilePhotoUrl,
     ownerId,
     ownerUsername,
     resources,
     newsComments,
-    commentsCount,
-    likesCount,
     likedByUser
   } = news;
   const history = useHistory();
@@ -69,7 +65,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               login={ownerUsername}
             />
           </div>
-          <div className="text-truncate">{title}</div>
+          <div className="text-truncate">{resources.length && resources[0].title}</div>
           <div>
             <MoreVertIcon />
           </div>
@@ -101,7 +97,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               </video> */}
             </CardMedia>
             <CardContent>
-              <span>{description}</span>
+              <span>{resources[0].description}</span>
             </CardContent>
           </CardActionArea>
         );
@@ -110,10 +106,10 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
           <CardActionArea>
             <CardMedia
               style={styles.media}
-              image={resources.length && resources[0].resourceName}
+              image={resources[0].resourceUrl}
             />
             <CardContent>
-              <span>{description}</span>
+              <span>{resources[0].description}</span>
             </CardContent>
           </CardActionArea>
         );
@@ -151,7 +147,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
         <CardActions>
           <div className="margin-left-1">
             <Badge
-              badgeContent={likesCount}
+              badgeContent={resources.length && resources[0].likesCount}
               className="pointer"
               color="primary"
             >
@@ -167,7 +163,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
           </div>
           <div className="margin-left-1">
             <Badge
-              badgeContent={commentsCount}
+              badgeContent={resources.length && resources[0].commentsCount}
               className="pointer"
               color="primary"
             >
