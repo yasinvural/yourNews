@@ -1,8 +1,8 @@
 import React from "react";
 import LoginComponent from "../../components/Login/LoginComponent";
 
-const LoginPage = ({ history }) => {
-  return <LoginComponent history={history} />;
+const LoginPage = () => {
+  return <LoginComponent />;
 };
 
 export default LoginPage;

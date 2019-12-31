@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
 import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
 import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
@@ -10,14 +11,15 @@ const paperContainerStyle = {
   padding: "4% 0"
 };
 
-const LoginComponent = ({ history }) => {
+const LoginComponent = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const loginSubmit = async (e) => {
+  const loginSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     try {

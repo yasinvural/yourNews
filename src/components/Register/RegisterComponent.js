@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { registerUser } from "../../services/AccountService";
 import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
 import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
@@ -10,7 +11,8 @@ const paperContainerStyle = {
   padding: "4% 0"
 };
 
-const RegisterComponent = ({ history }) => {
+const RegisterComponent = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");

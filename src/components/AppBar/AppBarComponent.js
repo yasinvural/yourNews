@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -16,7 +17,8 @@ const styles = {
   color: "white",
 };
 
-const AppBarComponent = ({ history }) => {
+const AppBarComponent = () => {
+  const history = useHistory();
   const [{}, dispatch] = useNewsValue();
   const [anchorEl, setAnchorEl] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));

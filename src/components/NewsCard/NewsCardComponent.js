@@ -40,6 +40,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     likedByUser
   } = news;
   const history = useHistory();
+  
   const forceUpdate = useForceUpdate();
 
   const renderTopOfTheCard = () => {

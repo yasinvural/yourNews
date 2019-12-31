@@ -5,11 +5,11 @@ import NewsListComponent from "../../components/NewsList/NewsListComponent";
 import { NewsProvider } from "../../context/NewsContext";
 import { initialState, reducer } from "../../reducer/NewsReducer";
 
-const MainPage = ({ history }) => {
+const MainPage = () => {
   return (
     <>
       <NewsProvider initialState={initialState} reducer={reducer}>
-        <AppBarComponent history={history} />
+        <AppBarComponent />
         <CategoryTabComponent />
         <NewsListComponent />
       </NewsProvider>
