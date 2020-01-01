@@ -6,7 +6,7 @@ import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import AuthenticationHOC from "./hoc/AuthenticationHOC";
 
-function App() {
+const App = () => {
   return (
     <>
       <Route exact path="/" component={AuthenticationHOC(MainPage)} />
@@ -15,6 +15,6 @@ function App() {
       <Route path="/register" component={RegisterPage} />
     </>
   );
-}
+};
 
 export default App;

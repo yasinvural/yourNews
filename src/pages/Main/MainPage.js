@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useReducer } from "react";
 import AppBarComponent from "../../components/AppBar/AppBarComponent";
 import CategoryTabComponent from "../../components/CategoryTab/CategoryTabComponent";
 import NewsListComponent from "../../components/NewsList/NewsListComponent";
-import { NewsProvider } from "../../context/NewsContext";
+import { NewsContext } from "../../context/NewsContext";
 import { initialState, reducer } from "../../reducer/NewsReducer";
 
 const MainPage = () => {
+  const [news, dispatch] = useReducer(reducer, initialState);
   return (
     <>
-      <NewsProvider initialState={initialState} reducer={reducer}>
+      <NewsContext.Provider value={{ news, dispatch }}>
         <AppBarComponent />
         <CategoryTabComponent />
         <NewsListComponent />
-      </NewsProvider>
+      </NewsContext.Provider>
     </>
   );
 };

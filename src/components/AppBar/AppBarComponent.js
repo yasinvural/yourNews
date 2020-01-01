@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   AppBar,
@@ -10,17 +10,17 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
-import { useNewsValue } from "../../context/NewsContext";
+import { NewsContext } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
 import userManager from "../../utils/userManager";
 
 const styles = {
-  color: "white",
+  color: "white"
 };
 
 const AppBarComponent = () => {
   const history = useHistory();
-  const [{}, dispatch] = useNewsValue();
+  const { dispatch } = useContext(NewsContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const user = JSON.parse(userManager.getItem("user"));
 
@@ -33,7 +33,7 @@ const AppBarComponent = () => {
   };
 
   const handleGoToMyProfile = () => {
-    history.push(`/user/${user.login}`)
+    history.push(`/user/${user.login}`);
   };
 
   const handleLogout = () => {
@@ -46,7 +46,6 @@ const AppBarComponent = () => {
   const open = Boolean(anchorEl);
 
   const renderAvatar = () => {
-    
     const { imageUrl, login } = user;
     return (
       <AvatarComponent
@@ -96,7 +95,7 @@ const AppBarComponent = () => {
             }}
           >
             <div className="margin-1 flex flex-column">
-            <Button color="primary" onClick={handleGoToMyProfile}>
+              <Button color="primary" onClick={handleGoToMyProfile}>
                 My Profile
               </Button>
               <Button color="primary" onClick={handleLogout}>

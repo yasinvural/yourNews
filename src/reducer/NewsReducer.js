@@ -1,6 +1,6 @@
 export const initialState = {
   loading: false,
-  news: [],
+  data: [],
   searchText: "",
   selectedCategory: "",
   pagination: {
@@ -14,7 +14,7 @@ export const reducer = (state, action) => {
     case "set_news":
       return {
         ...state,
-        news: [...action.payload]
+        data: [...action.payload]
       };
     case "set_page":
       return {
@@ -44,7 +44,7 @@ export const reducer = (state, action) => {
         selectedCategory: action.payload
       };
     case "set_likeNews":
-      const filteredLikeNews = state.news.map(_news => {
+      const filteredLikeNews = state.data.map(_news => {
         if (_news.id === action.payload) {
           _news.likedByUser = true;
           _news.likesCount = _news.likesCount + 1;
@@ -56,7 +56,7 @@ export const reducer = (state, action) => {
         news: [...filteredLikeNews]
       };
     case "set_dislikeNews":
-      const filteredDisLikeNews = state.news.map(_news => {
+      const filteredDisLikeNews = state.data.map(_news => {
         if (_news.id === action.payload) {
           _news.likedByUser = false;
           _news.likesCount = _news.likesCount - 1;
