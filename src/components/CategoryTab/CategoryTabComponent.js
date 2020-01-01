@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab } from "@material-ui/core";
 import { getCategories } from "../../services/CategoryService";
-import { NewsContext } from "../../context/NewsContext";
+import { useNewsValue } from "../../context/NewsContext";
 
 const CategoryTabComponent = () => {
   const [tabValue, setTabValue] = useState(0);
   const [categories, setCategories] = useState([]);
-  const {dispatch} = useContext(NewsContext);
+  const { dispatch } = useNewsValue();
 
   useEffect(() => {
     async function fetchCategoriesData() {

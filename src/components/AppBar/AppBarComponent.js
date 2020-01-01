@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   AppBar,
@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
-import { NewsContext } from "../../context/NewsContext";
+import { useNewsValue } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
 import userManager from "../../utils/userManager";
 
@@ -20,7 +20,7 @@ const styles = {
 
 const AppBarComponent = () => {
   const history = useHistory();
-  const { dispatch } = useContext(NewsContext);
+  const { dispatch } = useNewsValue();
   const [anchorEl, setAnchorEl] = useState(null);
   const user = JSON.parse(userManager.getItem("user"));
 

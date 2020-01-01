@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import NewsCardComponent from "../NewsCard/NewsCardComponent";
 import { getNews } from "../../services/NewsService";
-import { NewsContext } from "../../context/NewsContext";
+import { useNewsValue } from "../../context/NewsContext";
 import { TablePagination } from "@material-ui/core";
 
 const styles = {
@@ -32,7 +32,8 @@ const styles = {
 };
 
 const NewsListComponent = () => {
-  const { news, dispatch } = useContext(NewsContext);
+  const { news, dispatch } = useNewsValue();
+  debugger
   const { data, pagination, loading, searchText, selectedCategory } = news;
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);
