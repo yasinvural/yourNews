@@ -33,7 +33,6 @@ const styles = {
 
 const NewsListComponent = () => {
   const { news, dispatch } = useNewsValue();
-  debugger
   const { data, pagination, loading, searchText, selectedCategory } = news;
   const { page, size } = pagination;
   const [requestSent, setRequestSent] = useState(false);

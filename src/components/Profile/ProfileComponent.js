@@ -56,7 +56,7 @@ const styles = {
 };
 
 const ProfileComponent = ({ username, userImageUrl }) => {
-  const size = 10;
+  const size = 20;
   const [user, setUser] = useState({});
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(0);
@@ -94,7 +94,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
     fetchUserData();
   }, [username]);
 
-  useEffect(() => {
+  useEffect(() => { 
     async function fetchUserNews() {
       try {
         setLoading(true);

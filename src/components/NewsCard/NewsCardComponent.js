@@ -21,11 +21,12 @@ import { useForceUpdate } from "../../hooks/useForceUpdate";
 
 const styles = {
   card: {
-    width: "29%",
+    width: "21%",
+    height: "auto",
     margin: "2% 2%"
   },
   media: {
-    height: "240px"
+    height: "160px"
   }
 };
 

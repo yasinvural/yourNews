@@ -5,7 +5,7 @@ export const initialState = {
   selectedCategory: "",
   pagination: {
     page: 0,
-    size: 10
+    size: 20
   }
 };
 
