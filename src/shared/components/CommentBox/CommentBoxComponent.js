@@ -3,7 +3,9 @@ import { Card, Avatar, Typography, Popover } from "@material-ui/core";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import moment from "moment";
 import { deleteNewsComment } from "../../../services/CommentService";
-const user = JSON.parse(localStorage.getItem("user"));
+import userManager from "../../../utils/userManager";
+
+const user = JSON.parse(userManager.getItem("user"));
 
 const CommentBoxComponent = ({
   id,

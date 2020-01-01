@@ -4,6 +4,7 @@ import { Snackbar, Button, TextField, Paper } from "@material-ui/core";
 import SnackbarContentComponent from "../../shared/components/SnackbarContent/SnackbarContentComponent";
 import LoadingSpinnerComponent from "../../shared/components/LoadingSpinner/LoadingSpinnerComponent";
 import { loginUser } from "../../services/AccountService";
+import userManager from "../../utils/userManager";
 
 const paperContainerStyle = {
   width: "35%",
@@ -30,8 +31,8 @@ const LoginComponent = () => {
       });
       const { id_token, user } = result.data;
       const { id, imageUrl, firstName, lastName, login } = user;
-      localStorage.setItem("token", id_token);
-      localStorage.setItem(
+      userManager.setItem("token", id_token);
+      userManager.setItem(
         "user",
         JSON.stringify({ id, imageUrl, firstName, lastName, login })
       );

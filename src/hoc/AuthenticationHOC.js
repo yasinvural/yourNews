@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import userManager from "../utils/userManager";
 
 export default function(ComposedComponent) {
   class AuthenticationHOC extends Component {
     render() {
-      const token = localStorage.getItem("token");
+      const token = userManager.getItem("token");
       if (!token) {
         this.props.history.push("/login");
         return null;

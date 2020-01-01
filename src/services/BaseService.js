@@ -1,4 +1,5 @@
 import axios from "axios";
+import userManager from "../utils/userManager";
 
 class BaseService {
   constructor() {
@@ -7,7 +8,7 @@ class BaseService {
     });
 
     this.http.interceptors.request.use(config => {
-      const token = localStorage.getItem("token");
+      const token = userManager.getItem("token");
       if (token) {
         config.headers.common.Authorization = `Bearer ${token}`;
       }
@@ -32,8 +33,8 @@ class BaseService {
           throw Error("Bad Request");
         }
         if (error.response.status === 401) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
+          userManager.removeItem("token");
+          userManager.removeItem("user");
           throw Error("UnAuthorized");
         }
         if (error.response.status === 404) {

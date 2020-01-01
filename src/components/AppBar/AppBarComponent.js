@@ -12,6 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import { useNewsValue } from "../../context/NewsContext";
 import { debounce } from "../../utils/debounce";
+import userManager from "../../utils/userManager";
 
 const styles = {
   color: "white",
@@ -21,7 +22,7 @@ const AppBarComponent = () => {
   const history = useHistory();
   const [{}, dispatch] = useNewsValue();
   const [anchorEl, setAnchorEl] = useState(null);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(userManager.getItem("user"));
 
   const handleAnchorClick = event => {
     setAnchorEl(event.currentTarget);
@@ -36,8 +37,8 @@ const AppBarComponent = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    userManager.removeItem("token");
+    userManager.removeItem("user");
     handleAnchorClose();
     history.push("/");
   };
