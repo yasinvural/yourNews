@@ -18,6 +18,7 @@ import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
 import { likeDislikeNews } from "../../services/LikeService";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
+import { useNewsValue } from "../../context/NewsContext";
 
 const styles = {
   card: {
@@ -30,9 +31,10 @@ const styles = {
   }
 };
 
-const NewsCardComponent = memo(({ news, loading, dispatch }) => {
+const NewsCardComponent = memo(({ news, loading }) => {
   const history = useHistory();
   const forceUpdate = useForceUpdate();
+  const { dispatch } = useNewsValue();
   const {
     id,
     ownerProfilePhotoUrl,

@@ -97,7 +97,6 @@ const NewsListComponent = () => {
                 key={_new.id}
                 news={_new}
                 loading={loading}
-                dispatch={dispatch}
               />
             ))}
           </div>

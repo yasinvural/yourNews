@@ -132,7 +132,6 @@ const ProfileComponent = ({ username, userImageUrl }) => {
                 key={_new.id}
                 news={_new}
                 loading={loading}
-                dispatch={null}
               />
             ))}
           </div>
