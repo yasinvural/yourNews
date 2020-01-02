@@ -31,17 +31,15 @@ const styles = {
 };
 
 const NewsCardComponent = memo(({ news, loading, dispatch }) => {
+  const history = useHistory();
+  const forceUpdate = useForceUpdate();
   const {
     id,
     ownerProfilePhotoUrl,
-    ownerId,
     ownerUsername,
     resources,
     newsComments
   } = news;
-  const history = useHistory();
-
-  const forceUpdate = useForceUpdate();
 
   const renderTopOfTheCard = () => {
     const handleGoToUserPage = () => {
