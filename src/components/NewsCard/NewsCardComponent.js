@@ -37,15 +37,13 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
     ownerId,
     ownerUsername,
     resources,
-    newsComments,
-    likedByUser
+    newsComments
   } = news;
   const history = useHistory();
-  
+
   const forceUpdate = useForceUpdate();
 
   const renderTopOfTheCard = () => {
-    
     const handleGoToUserPage = () => {
       history.push(`/user/${ownerUsername}`);
     };
@@ -67,7 +65,9 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               login={ownerUsername}
             />
           </div>
-          <div className="text-truncate">{resources.length && resources[0].title}</div>
+          <div className="text-truncate">
+            {resources.length && resources[0].title}
+          </div>
           <div>
             <MoreVertIcon />
           </div>
@@ -106,10 +106,7 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
       } else {
         return (
           <CardActionArea>
-            <CardMedia
-              style={styles.media}
-              image={resources[0].resourceUrl}
-            />
+            <CardMedia style={styles.media} image={resources[0].resourceUrl} />
             <CardContent>
               <span>{resources[0].description}</span>
             </CardContent>
@@ -120,19 +117,16 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
   };
 
   const renderBottomOfTheCard = () => {
-    const handleLikeNews = async () => {
-      await likeDislikeNews({ id });
+    const handleLikeDislikeNews = async () => {
+      const reqObj = {
+        newsId: id,
+        resourceId: resources[0].id
+      };
+      const response = await likeDislikeNews(reqObj);
+
       dispatch({
         type: "set_likeNews",
-        payload: id
-      });
-      forceUpdate();
-    };
-    const handleDislikeNews = async () => {
-      await likeDislikeNews({ id });
-      dispatch({
-        type: "set_dislikeNews",
-        payload: id
+        payload: response
       });
       forceUpdate();
     };
@@ -153,13 +147,13 @@ const NewsCardComponent = memo(({ news, loading, dispatch }) => {
               className="pointer"
               color="primary"
             >
-              {likedByUser ? (
+              {resources[0].likedByUser ? (
                 <FavoriteIcon
                   style={{ color: "red" }}
-                  onClick={handleDislikeNews}
+                  onClick={handleLikeDislikeNews}
                 />
               ) : (
-                <FavoriteBorderIcon onClick={handleLikeNews} />
+                <FavoriteBorderIcon onClick={handleLikeDislikeNews} />
               )}
             </Badge>
           </div>
