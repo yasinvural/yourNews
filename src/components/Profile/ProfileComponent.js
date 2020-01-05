@@ -17,6 +17,7 @@ import {
   followedUser,
   unFollowUser
 } from "../../services/FollowService";
+import {useNewsValue} from "../../context/NewsContext";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -56,13 +57,12 @@ const styles = {
 };
 
 const ProfileComponent = ({ username, userImageUrl }) => {
-  const size = 20;
+  const {news, dispatch} = useNewsValue();
+  const {data,loading,pagination} = news;
+  const {page,size} = pagination;
   const [user, setUser] = useState({});
-  const [news, setNews] = useState([]);
-  const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [tabValue, setTabValue] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [showFollowButton, setShowFollowButton] = useState(true);
 
   useEffect(() => {
@@ -97,7 +97,10 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   useEffect(() => { 
     async function fetchUserNews() {
       try {
-        setLoading(true);
+        dispatch({
+          type: "set_loading",
+          payload: true
+        });
         const result = await getNews({
           pagination: {
             page,
@@ -105,11 +108,23 @@ const ProfileComponent = ({ username, userImageUrl }) => {
           },
           ownerUsernames: username
         });
-        setNews(result.data);
+        dispatch({
+          type: "set_news",
+          payload: result.data
+        });
         setTotalCount(Number(result.totalCount));
-        setLoading(false);
+        setTimeout(() => {
+          dispatch({
+            type: "set_loading",
+            payload: false
+          });
+        }, 0);
       } catch (err) {
         console.log(err);
+        dispatch({
+          type: "set_loading",
+          payload: false
+        });
       }
     }
     fetchUserNews();
@@ -119,15 +134,18 @@ const ProfileComponent = ({ username, userImageUrl }) => {
 
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);
-    setPage(newPage);
+    dispatch({
+      type: "set_page",
+      payload: newPage
+    });
   };
 
   const renderNews = () => {
-    if (news.length) {
+    if (news.data.length) {
       return (
         <>
           <div style={styles.container}>
-            {news.map(_new => (
+            {news.data.map(_new => (
               <NewsCardComponent
                 key={_new.id}
                 news={_new}

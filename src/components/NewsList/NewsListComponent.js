@@ -35,17 +35,14 @@ const NewsListComponent = () => {
   const { news, dispatch } = useNewsValue();
   const { data, pagination, loading, searchText, selectedCategory } = news;
   const { page, size } = pagination;
-  const [requestSent, setRequestSent] = useState(false);
   const [totalCount, setTotalCount] = useState(false);
 
   useEffect(() => {
-    if (requestSent) return;
     async function fetchNewsData() {
       dispatch({
         type: "set_loading",
         payload: true
       });
-      setRequestSent(true);
       try {
         const result = await getNews({
           pagination: {
@@ -65,7 +62,6 @@ const NewsListComponent = () => {
             type: "set_loading",
             payload: false
           });
-          setRequestSent(false);
         }, 0);
       } catch (err) {
         console.log(err.message);
@@ -73,7 +69,6 @@ const NewsListComponent = () => {
           type: "set_loading",
           payload: false
         });
-        setRequestSent(false);
       }
     }
     fetchNewsData();
@@ -93,11 +88,7 @@ const NewsListComponent = () => {
         <>
           <div style={styles.container}>
             {data.map(_new => (
-              <NewsCardComponent
-                key={_new.id}
-                news={_new}
-                loading={loading}
-              />
+              <NewsCardComponent key={_new.id} news={_new} loading={loading} />
             ))}
           </div>
           <div style={styles.paginationContainer}>
