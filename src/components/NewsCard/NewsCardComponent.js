@@ -40,8 +40,10 @@ const NewsCardComponent = memo(({ news, loading }) => {
     ownerProfilePhotoUrl,
     ownerUsername,
     resources,
-    newsComments
+    newsComments,
+    statistic
   } = news;
+  // const { viewedCount } = statistic;
 
   const renderTopOfTheCard = () => {
     const handleGoToUserPage = () => {
@@ -165,6 +167,9 @@ const NewsCardComponent = memo(({ news, loading }) => {
             >
               <ChatBubbleOutlineIcon />
             </Badge>
+          </div>
+          <div className="margin-right-1 flex-1 text-align-right">
+            {(statistic && statistic.viewedCount) || 0} times viewed
           </div>
         </CardActions>
       );
