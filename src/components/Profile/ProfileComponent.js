@@ -17,7 +17,7 @@ import {
   followedUser,
   unFollowUser
 } from "../../services/FollowService";
-import {useNewsValue} from "../../context/NewsContext";
+import { useNewsValue } from "../../context/NewsContext";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -26,6 +26,21 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 240
+  },
+  followButton: {
+    border: "1px solid blue",
+    padding: "8px 16px",
+    color: "blue",
+    borderRadius: "4px",
+    cursor: "pointer"
+  },
+  unFollowButton: {
+    border: "1px solid blue",
+    padding: "8px 16px",
+    color: "white",
+    backgroundColor: "blue",
+    borderRadius: "4px",
+    cursor: "pointer"
   }
 }));
 
@@ -57,9 +72,9 @@ const styles = {
 };
 
 const ProfileComponent = ({ username, userImageUrl }) => {
-  const {news, dispatch} = useNewsValue();
-  const {data,loading,pagination} = news;
-  const {page,size} = pagination;
+  const { news, dispatch } = useNewsValue();
+  const { data, loading, pagination } = news;
+  const { page, size } = pagination;
   const [user, setUser] = useState({});
   const [totalCount, setTotalCount] = useState(0);
   const [tabValue, setTabValue] = useState(0);
@@ -94,7 +109,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
     fetchUserData();
   }, [username]);
 
-  useEffect(() => { 
+  useEffect(() => {
     async function fetchUserNews() {
       try {
         dispatch({
@@ -146,11 +161,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
         <>
           <div style={styles.container}>
             {news.data.map(_new => (
-              <NewsCardComponent
-                key={_new.id}
-                news={_new}
-                loading={loading}
-              />
+              <NewsCardComponent key={_new.id} news={_new} loading={loading} />
             ))}
           </div>
           <div style={styles.paginationContainer}>
@@ -178,7 +189,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
 
   const handleUnfollowUser = async () => {
     const result = await unFollowUser(username);
-    if (result.data){
+    if (result.data) {
       setShowFollowButton(true);
     }
   };
@@ -196,7 +207,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
           title="Paella dish"
         />
         <CardContent>
-          <div className="flex justify-space-between">
+          <div className="flex justify-space-between align-center">
             <div>
               {user && user.user && user.user.firstName}
               {user && user.user && user.user.lastName}
@@ -220,9 +231,16 @@ const ProfileComponent = ({ username, userImageUrl }) => {
                 user.followerStatistics.waitingRequestCount}
             </div>
             {showFollowButton ? (
-              <Button onClick={handleFollowUser}>Follow</Button>
+              <div className={classes.followButton} onClick={handleFollowUser}>
+                Follow
+              </div>
             ) : (
-              <Button onClick={handleUnfollowUser}>Unfollow</Button>
+              <div
+                className={classes.unFollowButton}
+                onClick={handleUnfollowUser}
+              >
+                Unfollow
+              </div>
             )}
           </div>
         </CardContent>
