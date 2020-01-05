@@ -18,6 +18,7 @@ import {
   unFollowUser
 } from "../../services/FollowService";
 import { useNewsValue } from "../../context/NewsContext";
+import userManager from "../../utils/userManager";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -79,6 +80,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
   const [totalCount, setTotalCount] = useState(0);
   const [tabValue, setTabValue] = useState(0);
   const [showFollowButton, setShowFollowButton] = useState(true);
+  const sessionUser = JSON.parse(userManager.getItem("user"));
 
   useEffect(() => {
     async function fetchFollowedUser() {
@@ -147,6 +149,11 @@ const ProfileComponent = ({ username, userImageUrl }) => {
 
   const classes = useStyles();
 
+  const displayFollowUnFollowButton = () => {
+    if (user && user.user && user.user.id === sessionUser.id) return false;
+    else return true;
+  };
+
   const handleChangePage = (event, newPage) => {
     window.scrollTo(0, 0);
     dispatch({
@@ -198,6 +205,25 @@ const ProfileComponent = ({ username, userImageUrl }) => {
     setTabValue(newValue);
   };
 
+  const renderFollowButton = () => {
+    if (displayFollowUnFollowButton()) {
+      if (showFollowButton) {
+        return (
+          <div className={classes.followButton} onClick={handleFollowUser}>
+            Follow
+          </div>
+        );
+      } else {
+        return (
+          <div className={classes.unFollowButton} onClick={handleUnfollowUser}>
+            Unfollow
+          </div>
+        );
+      }
+    } else {
+      return null;
+    }
+  };
   return (
     <>
       <Card className={classes.card}>
@@ -230,18 +256,7 @@ const ProfileComponent = ({ username, userImageUrl }) => {
                 user.followerStatistics &&
                 user.followerStatistics.waitingRequestCount}
             </div>
-            {showFollowButton ? (
-              <div className={classes.followButton} onClick={handleFollowUser}>
-                Follow
-              </div>
-            ) : (
-              <div
-                className={classes.unFollowButton}
-                onClick={handleUnfollowUser}
-              >
-                Unfollow
-              </div>
-            )}
+            {renderFollowButton()}
           </div>
         </CardContent>
       </Card>
