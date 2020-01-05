@@ -27,7 +27,7 @@ const styles = {
     margin: "2% 2%"
   },
   media: {
-    height: "160px"
+    height: "220px"
   }
 };
 
@@ -43,7 +43,17 @@ const NewsCardComponent = memo(({ news, loading }) => {
     newsComments,
     statistic
   } = news;
-  // const { viewedCount } = statistic;
+
+  const {
+    id: resourceId,
+    resourceUrl,
+    resourceType,
+    title,
+    description,
+    likesCount,
+    commentsCount,
+    likedByUser
+  } = resources[0];
 
   const renderTopOfTheCard = () => {
     const handleGoToUserPage = () => {
@@ -67,9 +77,7 @@ const NewsCardComponent = memo(({ news, loading }) => {
               login={ownerUsername}
             />
           </div>
-          <div className="text-truncate">
-            {resources.length && resources[0].title}
-          </div>
+          <div className="text-truncate">{title}</div>
           <div>
             <MoreVertIcon />
           </div>
@@ -88,29 +96,26 @@ const NewsCardComponent = memo(({ news, loading }) => {
         />
       );
     } else {
-      if (
-        resources.length &&
-        resources[0].resourceType === ResourceTypes.Video
-      ) {
+      if (resourceType === ResourceTypes.Video) {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={ownerProfilePhotoUrl}>
-              {/* <video width="100%" controls>
-                <source src={resources[0].resourceName} type="video/mp4" />
-                <source src={resources[0].resourceName} type="video/ogg" />
-              </video> */}
+            <CardMedia style={styles.media}>
+              <video width="100%" height="212px" controls>
+                <source src={resourceUrl} type="video/mp4" />
+                <source src={resourceUrl} type="video/ogg" />
+              </video>
             </CardMedia>
             <CardContent>
-              <span>{resources[0].description}</span>
+              <span>{description}</span>
             </CardContent>
           </CardActionArea>
         );
       } else {
         return (
           <CardActionArea>
-            <CardMedia style={styles.media} image={resources[0].resourceUrl} />
+            <CardMedia style={styles.media} image={resourceUrl} />
             <CardContent>
-              <span>{resources[0].description}</span>
+              <span>{description}</span>
             </CardContent>
           </CardActionArea>
         );
@@ -122,7 +127,7 @@ const NewsCardComponent = memo(({ news, loading }) => {
     const handleLikeDislikeNews = async () => {
       const reqObj = {
         newsId: id,
-        resourceId: resources[0].id
+        resourceId: resourceId
       };
       const response = await likeDislikeNews(reqObj);
 
@@ -145,11 +150,11 @@ const NewsCardComponent = memo(({ news, loading }) => {
         <CardActions>
           <div className="margin-left-1">
             <Badge
-              badgeContent={resources.length && resources[0].likesCount}
+              badgeContent={likesCount}
               className="pointer"
               color="primary"
             >
-              {resources[0].likedByUser ? (
+              {likedByUser ? (
                 <FavoriteIcon
                   style={{ color: "red" }}
                   onClick={handleLikeDislikeNews}
@@ -161,7 +166,7 @@ const NewsCardComponent = memo(({ news, loading }) => {
           </div>
           <div className="margin-left-1">
             <Badge
-              badgeContent={resources.length && resources[0].commentsCount}
+              badgeContent={commentsCount}
               className="pointer"
               color="primary"
             >
