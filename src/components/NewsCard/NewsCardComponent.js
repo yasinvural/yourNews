@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState, memo } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Card,
@@ -6,7 +6,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Badge
+  Badge,
+  Popover,
+  TextField
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -17,6 +19,7 @@ import CommentBoxComponent from "../../shared/components/CommentBox/CommentBoxCo
 import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import ResourceTypes from "../../const/ResourceTypes";
 import { likeDislikeNews } from "../../services/LikeService";
+import { createNewsComment } from "../../services/CommentService";
 import { useForceUpdate } from "../../hooks/useForceUpdate";
 import { useNewsValue } from "../../context/NewsContext";
 
@@ -34,6 +37,8 @@ const styles = {
 const NewsCardComponent = memo(({ news, loading }) => {
   const history = useHistory();
   const forceUpdate = useForceUpdate();
+  const [comment, setComment] = useState("");
+  const [commentAnchor, setCommentAnchor] = useState(null);
   const { dispatch } = useNewsValue();
   const {
     id,
@@ -54,6 +59,15 @@ const NewsCardComponent = memo(({ news, loading }) => {
     commentsCount,
     likedByUser
   } = resources[0];
+
+  const handleCommentClick = event => {
+    setCommentAnchor(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setComment("");
+    setCommentAnchor(null);
+  };
 
   const renderTopOfTheCard = () => {
     const handleGoToUserPage = () => {
@@ -123,6 +137,8 @@ const NewsCardComponent = memo(({ news, loading }) => {
     }
   };
 
+  const openCommentPopover = Boolean(commentAnchor);
+
   const renderBottomOfTheCard = () => {
     const handleLikeDislikeNews = async () => {
       const reqObj = {
@@ -136,6 +152,30 @@ const NewsCardComponent = memo(({ news, loading }) => {
         payload: response
       });
       forceUpdate();
+    };
+
+    const handleCommentKeyPress = e => {
+      const comment = e.target.value.trim();
+
+      const handleCreateComment = async () => {
+        const reqObj = {
+          body: comment,
+          newsId: id,
+          resourceId
+        };
+        const res = await createNewsComment(reqObj);
+        if (res.success) {
+          handleClosePopover();
+          dispatch({
+            type: "set_comment",
+            payload: res.data
+          });
+        }
+      };
+
+      if (e.key === "Enter") {
+        if (comment) handleCreateComment();
+      }
     };
 
     if (loading) {
@@ -170,7 +210,30 @@ const NewsCardComponent = memo(({ news, loading }) => {
               className="pointer"
               color="primary"
             >
-              <ChatBubbleOutlineIcon />
+              <ChatBubbleOutlineIcon onClick={handleCommentClick} />
+              <Popover
+                open={openCommentPopover}
+                anchorEl={commentAnchor}
+                onClose={handleClosePopover}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center"
+                }}
+              >
+                <div className="padding-1">
+                  <TextField
+                    placeholder="Press enter to add comment"
+                    variant="outlined"
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
+                    onKeyPress={handleCommentKeyPress}
+                  />
+                </div>
+              </Popover>
             </Badge>
           </div>
           <div className="margin-right-1 flex-1 text-align-right">

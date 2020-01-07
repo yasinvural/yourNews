@@ -54,6 +54,17 @@ export const reducer = (state, action) => {
         ...state,
         data: [...filteredLikeNews]
       };
+    case "set_comment":
+        const filteredNews = state.data.map(_news => {
+          if(_news.id === action.payload.id){
+            _news = action.payload
+          }
+          return _news;
+        });
+        return {
+          ...state,
+          data: [...filteredNews]
+        }
     default:
       return state;
   }
