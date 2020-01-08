@@ -6,3 +6,8 @@ export const getNews = (options = {}) => {
   const result = baseService.get(`news?${query}`);
   return result;
 };
+
+export const getNewsById = id => {
+  const result = baseService.get(`news/${id}`);
+  return result;
+};

@@ -60,6 +60,10 @@ const NewsCardComponent = memo(({ news, loading }) => {
     likedByUser
   } = resources[0];
 
+  const handleGoToNewsDetail = () => {
+    history.push(`/news/${id}`);
+  };
+
   const handleCommentClick = event => {
     setCommentAnchor(event.currentTarget);
   };
@@ -112,7 +116,7 @@ const NewsCardComponent = memo(({ news, loading }) => {
     } else {
       if (resourceType === ResourceTypes.Video) {
         return (
-          <CardActionArea>
+          <CardActionArea onClick={handleGoToNewsDetail}>
             <CardMedia style={styles.media}>
               <video width="100%" height="212px" controls>
                 <source src={resourceUrl} type="video/mp4" />

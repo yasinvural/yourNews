@@ -68,7 +68,9 @@ const AppBarComponent = () => {
     <>
       <AppBar position="static">
         <Toolbar className="justify-space-between">
-          <div>Your News</div>
+          <div className="pointer" onClick={() => history.push("/")}>
+            Your News
+          </div>
           <OutlinedInput
             style={styles}
             placeholder="Search News"
