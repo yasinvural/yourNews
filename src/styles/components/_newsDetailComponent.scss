@@ -1,12 +1,12 @@
 .comment-section {
+  padding: 0.5rem 1rem;
   &__header {
-    padding: 0.5rem 1rem;
     font-size: 22px;
   }
   &__comments {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 1rem;
+    padding: 1rem 0;
   }
 }
 
@@ -43,5 +43,21 @@
     &__date {
       font-size: 13px;
     }
+  }
+}
+
+.news-section {
+  padding: 0.5rem 1rem;
+  &__header {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  &__description {
+    margin: 1rem 0;
+    font-size: 18px;
+  }
+  &__resource {
+    width: 50%;
+    margin: auto;
   }
 }

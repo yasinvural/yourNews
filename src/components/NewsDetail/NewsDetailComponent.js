@@ -27,7 +27,47 @@ const NewsDetailComponent = () => {
   }, [params.id]);
 
   console.log(newsDetail);
-  console.log(newsComment);
+
+  const renderNewsSection = () => {
+    return (
+      <div className="news-section">
+        <div className="news-section__header">
+          {newsDetail &&
+            newsDetail.resources &&
+            newsDetail.resources[0] &&
+            newsDetail.resources[0].title}
+        </div>
+        <div className="news-section__description">
+          {newsDetail &&
+            newsDetail.resources &&
+            newsDetail.resources[0] &&
+            newsDetail.resources[0].description}
+        </div>
+        <div className="news-section__resource">
+          <video width="100%" height="212px" controls>
+            <source
+              src={
+                newsDetail &&
+                newsDetail.resources &&
+                newsDetail.resources[0] &&
+                newsDetail.resources[0].resourceUrl
+              }
+              type="video/mp4"
+            />
+            <source
+              src={
+                newsDetail &&
+                newsDetail.resources &&
+                newsDetail.resources[0] &&
+                newsDetail.resources[0].resourceUrl
+              }
+              type="video/ogg"
+            />
+          </video>
+        </div>
+      </div>
+    );
+  };
 
   const renderCommentSection = () => {
     return (
@@ -62,6 +102,7 @@ const NewsDetailComponent = () => {
   return (
     <div className="news-detail">
       <Paper elevation={2}>
+        <section>{renderNewsSection()}</section>
         <section>{renderCommentSection()}</section>
       </Paper>
     </div>
