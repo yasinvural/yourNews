@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getNewsById } from "../../services/NewsService";
 import { getNewsComment } from "../../services/CommentService";
 import moment from "moment";
+import AvatarComponent from "../../shared/components/Avatar/AvatarComponent";
 import { Paper } from "@material-ui/core";
 
 const NewsDetailComponent = () => {
@@ -79,7 +80,11 @@ const NewsDetailComponent = () => {
           {newsComment.map(comment => (
             <div className="comment-container">
               <div className="comment-container__owner">
-                <img src={comment.ownerProfilePhotoUrl} alt="" />
+                <AvatarComponent
+                  size="small"
+                  imageUrl={comment.ownerProfilePhotoUrl}
+                  login={comment.ownerUsername}
+                />
               </div>
               <div className="comment-container__body">
                 <div className="comment-container__body__username">
