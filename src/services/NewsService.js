@@ -11,3 +11,9 @@ export const getNewsById = id => {
   const result = baseService.get(`news/${id}`);
   return result;
 };
+
+export const getPublicNews = (options = {}) => {
+  const query = createQueryFromObject(options);
+  const result = baseService.get(`news/public?${query}`);
+  return result;
+};
