@@ -46,15 +46,23 @@ const AppBarComponent = () => {
   const open = Boolean(anchorEl);
 
   const renderAvatar = () => {
-    const { imageUrl, login } = user;
-    return (
-      <AvatarComponent
-        size="medium"
-        imageUrl={imageUrl}
-        login={login}
-        handleClick={handleAnchorClick}
-      />
-    );
+    if (user) {
+      const { imageUrl, login } = user;
+      return (
+        <AvatarComponent
+          size="medium"
+          imageUrl={imageUrl}
+          login={login}
+          handleClick={handleAnchorClick}
+        />
+      );
+    } else {
+      return (
+        <div className="pointer" onClick={() => history.push("/login")}>
+          Login
+        </div>
+      );
+    }
   };
 
   const handleChangeSearchText = debounce(searchText => {
